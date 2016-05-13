@@ -242,9 +242,10 @@ int buildStory(void)
 
 	// Scenerio
 	strcpy(scenes[4].scenerio,
-	"The fairies, now convinced that you are not a threat to their forest, provide the team with a hearty breakfast of leafy  \n"
-	"greens and roasted locusts, which are surprisingly tasty and filling.The fairies are normally a cheerful sort, but they are so \n"
-	"saddened by the story of Princess Stephanie's impending demise that they begin to weep.  You then... \n"
+	"The fairies, now convinced that you are not a threat to their forest, provide the team with a hearty \n"
+	"breakfast of leafy greens and roasted locusts, which are surprisingly tasty and filling.The fairies \n"
+	"are normally a cheerful sort, but they are so saddened by the story of Princess Stephanie's impending \n"
+	"demise that they begin to weep.  You then... \n"
 	); // char scenerio[4096]
 
 	// Menu
@@ -265,7 +266,7 @@ int buildStory(void)
 	strcpy(scenes[4].answers[2], "For some reason this arouses Lee the centaur.  Some awkwardness happens.  Let's not speak of it.\n");
 
 	// Answer 4
-	strcpy(scenes[4].answers[3], "Your team holds down the fairies and milk them of thier sweet sweet tears.  Well done.\n");
+	strcpy(scenes[4].answers[3], "Your team holds down the fairies and milks them of thier sweet sweet tears.  Well done.\n");
 
 	// Correct Answer  remember this is an INDEX 0 through 3
 	scenes[4].correctAnswer = 3;
@@ -279,7 +280,7 @@ int buildStory(void)
 	// -----------------------------------------------------------------------------
 	// SCENE INDEX 5
 	// -----------------------------------------------------------------------------
-	strcpy(scenes[5].showOnce, "Scene 6 -  \n"); // char showOnce[1024]
+	strcpy(scenes[5].showOnce, "Scene 6 -  Assemble your troops\n"); // char showOnce[1024]
 
 	// Scenerio
 	strcpy(scenes[5].scenerio,
@@ -292,14 +293,16 @@ int buildStory(void)
 
 	// Menu
 	strcpy(scenes[5].menu,
-	"1) Stay up all night learning as much you can at Wiknowlogia, since it's located in Ambray's basement, and you're already here.\n"				// Index 0
-	"2) Realize you don't have time to read through endless scrolls, much less memorize them, so you try to figure things out for yourself.\n"				// Index 1
+	"1) Stay up all night learning as much you can at Wiknowlogia, since it's located in Ambray's \n"
+	"   basement, and you're already here.\n"				// Index 0
+	"2) Realize you don't have time to read through endless scrolls, much less memorize them, so \n"
+	"   you try to figure things out for yourself.\n"				// Index 1
 	"3) Wander away, shaking your head at the astounding uselessness of this counsel.\n"				// Index 2 Correct
 	"4) Argue with Ambray, telling him you don't understand, and he sends you away empty-handed.\n"				// Index 3
 	); // char menu[1024])
 
 	// Answer 1
-	strcpy(scenes[5].answers[0], "You gain the knowledge you seek, but your brain hurts now.\n");
+	strcpy(scenes[5].answers[0], "You have a +1 in knowledge, but your brain hurts now.\n");
 
 	// Answer 2
 	strcpy(scenes[5].answers[1], "You scroll wasn't null terminated and your spell crashed.  Time to cram.\n");
@@ -357,6 +360,125 @@ int buildStory(void)
 	scenes[6].complete = 0;
 
 
+	// -----------------------------------------------------------------------------
+	// SCENE INDEX 7
+	// -----------------------------------------------------------------------------
+	strcpy(scenes[7].showOnce, "Scene 8 - Bringing on the Hark Ache \n"); // char showOnce[1024]
+
+	// Scenerio
+	strcpy(scenes[7].scenerio,
+		"Once inside the outer court of Harkeus' castle, you find yourself in a surreal 3-dimensional \n"
+		"maze of obtuse structures that are linked to one another with random bridges and tunnels.  The apparent \n"
+		"way to get to the end is to start traversing the links in the order prescribed by Harkeus' twisted imagination. \n"
+		"What do you want to do?  \n"
+	); // char scenerio[4096]
+
+	// Menu
+	strcpy(scenes[7].menu,
+		"1) Begin slowly picking your way through the structures, as Harkeus' looks on and laughs at your frustration.\n"	// Index 0
+		"2) Call in the Eagles of Unusual Size to airlift you and your team to your destination.\n"				// Index 1
+		"3) Set fire to the flimsy wooden structures and charge directly toward the castle keep.\n"				// Index 2 
+		"4) Attempt to analyze the maze in the hope of finding an elegant solution to the mess of links and nodes.\n"	// Index 3
+	); // char menu[1024])
+
+	// Answer 1
+	strcpy(scenes[7].answers[0], "You become lost in the maze and you decide that you and your team take a potion to take you back to the start\n");
+
+	// Answer 2
+	strcpy(scenes[7].answers[1], "You get to the end of the maze and feel wise that you have made this decision\n");
+
+	// Answer 3
+	strcpy(scenes[7].answers[2], "Upset by what you have done Harkeus takes you back to the start of the maze and with his magic recreates his maze.\n");
+
+	// Answer 4
+	strcpy(scenes[7].answers[3], "You spend too much time analyzing the maze and decide that a better option is possible\n");
+
+	// Correct Answer  remember this is an INDEX 0 through 3
+	scenes[7].correctAnswer = 2;
+
+	// Complete is equal to 0
+	scenes[7].complete = 0;
+
+	// -----------------------------------------------------------------------------
+	// SCENE INDEX 8
+	// -----------------------------------------------------------------------------
+	strcpy(scenes[8].showOnce, "Scene 9 - Can't C me");
+
+	// Scenerio
+	strcpy(scenes[8].scenerio,
+		"You break into the keep, quickly dispatch with the poorly trained sentries, and charge down the spiral stone \n"
+		"staircase.  You enter the dungeon, and immediately come face - to - face with the vile dragon Harkeus.  A drunk \n"
+		"Attican pirate once told you that Harkeus' has a weakness: he can't see well in the dark.  You reach for the \n"
+		"partial - invisibility potion you keep on your utility belt, but it must've fallen off during the fray.  Now what?? \n"
+	); // char scenerio[4096]
+
+	// Menu
+	strcpy(scenes[8].menu,
+		"1) Turn around and charge back up the spiral stone staircase.\n"               // Index 0
+		"2) Wait him out till he gets fired from his contract from Dragon D&D.\n"           // Index 1
+		"3) Invoke the Miguel demon to say, \"Wait a minute, wait a mintue, wait a minute.\" and an ask him endless questions.\n"         // Index 2
+		"4) You cover your head with your towel, because if you can't see Harkeus, he thinks he can't see you either.\n"  // Index 3 Correct
+		); // char menu[1024])
+
+		   // Answer 1
+	strcpy(scenes[8].answers[0], "Harkeus immediate tells you that you cannot leave until 3:30.  Reluctantly go back down the stairs.\n");
+
+	// Answer 2
+	strcpy(scenes[8].answers[1], "Harkeus casts a spell of Contract Extenstion.  Try again.\n");
+
+	// Answer 3
+	strcpy(scenes[8].answers[2], "This works only to upset Harkeus even more.  Try something else.\n");
+
+	// Answer 4 - Correct Answer
+	strcpy(scenes[8].answers[3], "Strangely enough this works very well.  He can't see you.\n");
+
+	// Correct Answer  remember this is an INDEX 0 through 3
+	scenes[8].correctAnswer = 3;
+
+	// Complete is equal to 0
+	scenes[8].complete = 0;
+
+
+	// -----------------------------------------------------------------------------
+	// SCENE INDEX 9
+	// -----------------------------------------------------------------------------
+	strcpy(scenes[9].showOnce, "Scene 10 - Time for an Epic Win Win \n"); // char showOnce[1024]
+
+	// Scenerio
+	strcpy(scenes[9].scenerio,
+	"XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX \n"
+	"XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX \n"
+	"XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX \n"
+	); // char scenerio[4096]
+
+	// Menu
+	strcpy(scenes[9].menu,
+	"1) XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX\n"				// Index 0
+	"2) XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX\n"				// Index 1
+	"3) XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX\n"				// Index 2 Correct
+	"   XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX.\n"				// This is an extra line, if you need one
+	"4) XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX\n"				// Index 3
+	); // char menu[1024])
+
+	// Answer 1
+	strcpy(scenes[9].answers[0], "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX\n");
+
+	// Answer 2
+	strcpy(scenes[9].answers[1], "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX\n");  // Correct Answer
+
+	// Answer 3
+	strcpy(scenes[9].answers[2], "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX\n");
+
+	// Answer 4
+	strcpy(scenes[9].answers[3], "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX\n");
+
+	// Correct Answer  remember this is an INDEX 0 through 3
+	scenes[9].correctAnswer = 1;
+
+	// Complete is equal to 0
+	scenes[9].complete = 0;
+
+
 	return 0;
 }
 
@@ -387,9 +509,11 @@ int getUserInput(void)
 		}
 		else
 		{
-			printf("Answer %d not understood, try again: ", userInput);
+			printf("Choose 1 - 4 there Mr. Wizard\n");
 		}
 	}
+
+	printf("\n");
 
 	return userInput - 49;
 

@@ -26,6 +26,12 @@ int main(void)
 		perror("ERROR: Build story return %d\n", errorCode);
 		return -1;
 	}
+	else
+	{
+		printf("%d Scenes loaded\n", SCENES);
+		Sleep(2000);
+		system("cls");
+	}
 
 	// -----------------------------------------------------------------------------
 	// Introduction
@@ -116,7 +122,10 @@ int main(void)
 
 
 	// Story Conclusion
-	printf("The story is over\n");
+	printf("\n\nCongratulations you have won the MUD!  After BBQing the dragon Harkeus the great centaur Lee \n"
+		"stops by and pigs out on the roasted dragon meat. He then watches as you 'consumate' your marriage \n"
+		"to Princess Stephanie.  It's quite awkard but that is how the story ends.\n"
+	);
 
 
 	Sleep(20000);
