@@ -68,20 +68,23 @@ int buildStory(void)
 	// SCENE INDEX 1
 	// -----------------------------------------------------------------------------
 	// Show Once is option: scenes[1].showOnce = 0;
-	memset(scenes[3].showOnce, 0, 1024); // char showOnce[1024]
+	//memset(scenes[1].showOnce, 0, 1024); // char showOnce[1024]
+	strcpy(scenes[1].showOnce, "");
 
 											// Scenerio
 	strcpy(scenes[1].scenerio, 
 		"The next day while traveling toward Harkeus' lair, you're stopped on the road by the grisly troll Vogeler \n"
 		"who demands payment so you can pass.As he taunts you, Vogeler brags about having a map of the underground dragon \n"
-		"chamber, which he had taken from another hapless traveler.\n"); // char scenerio[4096]
+		"chamber, which he had taken from another hapless traveler.\n"
+	); // char scenerio[4096]
 
 	// Menu
 	strcpy(scenes[1].menu, 
 		"1) Use your Mace of Recursion to bludgeon Vogeler repeatedly until he gives up the map and allows you to pass.\n"
 		"2) Pay Vogeler all the money and half the weapons your team has in their possession, then proceed down the road.\n"
 		"3) Hurl curses at Vogeler as you turn around and try to find a different path to Harkeus' lair.\n "
-		"4) Ask Vogeler to join your mission.\n"); // char menu[1024])
+		"4) Ask Vogeler to join your mission.\n"
+	); // char menu[1024])
 
 	// Answer 1 Correct answer																														   // Answer 1
 	strcpy(scenes[1].answers[0], "Vogeler gets extremely confused and awed by your power and says he will not contest you. Good work.\n");
@@ -103,10 +106,44 @@ int buildStory(void)
 
 
 	// -----------------------------------------------------------------------------
+	// SCENE INDEX 2
+	// Layout for all scenes
+	// -----------------------------------------------------------------------------
+	// Show Once is option: scenes[0].showOnce = 0;
+	strcpy(scenes[2].showOnce, "You planned to stop that night at the seaside town of Kellack,\n"
+		"knowing it offers safe refuge for travelers.  However, Kellack was\n"
+		"recently taken over by a band of Attican pirates, who are rich with \n"
+		"loot from another town further down the coast.\n"); // char showOnce[1024]
+														   // Scenerio
+	strcpy(scenes[2].scenerio, "Tonight the pirates are all drunk on grog and do not seem hostile,\n"
+		"but you know that Atticans are dangerous.  You decide to :\n"); // char scenerio[4096]
+																	   // Menu
+	strcpy(scenes[2].menu, "1) Befriend the pirates and listen to their wild sea stories,\n"
+		"hoping to learn some useful information.\n"
+		"2) Exercise caution and set up camp for the night just on the\n"
+		"   other side of Kellack.\n"
+		"3) Travel on through the night because you want to get as far\n"
+		"   as possible from Kellack.\n"
+		"4) Attempt to gather the loot to return it.\n"); // char menu[1024])
+														  // Answer 1
+	strcpy(scenes[2].answers[0], "They're pirates, nothing useful learned.");
+	// Answer 2
+	strcpy(scenes[2].answers[1], "Wise choice. ");
+	// Answer 3
+	strcpy(scenes[2].answers[2], "No need to rush out of town.");
+	// Answer 4
+	strcpy(scenes[2].answers[3], "Bad decision. Pirates have beat you down to a bloody mess.");
+	// Correct Answer
+	scenes[2].correctAnswer = 1;
+	// Complete is equal to 0
+	scenes[2].complete = 0;
+
+
+	// -----------------------------------------------------------------------------
 	// SCENE INDEX 3
 	// Layout for all scenes
 	// -----------------------------------------------------------------------------
-	memset(scenes[3].showOnce, 0, 1024);
+	strcpy(scenes[3].showOnce, "");
 	//strcpy(scenes[3].showOnce, "Once apon a time this will only be seen once"); // char showOnce[1024]
 
 	// Scenerio

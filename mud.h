@@ -15,10 +15,10 @@
 ********************************************************************************* */
 struct story
 {
-	char showOnce[1024];
+	char showOnce[4096];
 	char scenerio[4096];
-	char menu[1024];
-	char answers[4][1024];
+	char menu[4096];
+	char answers[4][4096];
 	int correctAnswer;
 	int complete;
 } scenes[SCENES];
