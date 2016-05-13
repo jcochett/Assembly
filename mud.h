@@ -1,7 +1,8 @@
 #ifndef __MUD_HEADER_ROW2__
 #define __MUD_HEADER_ROW2__
 
-#define SCENES 10
+#define SCENES 1
+#define _CRT_SECURE_NO_WARNINGS
 
 struct story
 {

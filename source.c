@@ -11,25 +11,44 @@ MUD
 int main(void)
 {
 	int i = 0;
+	int errorCode = 0;
 
+	// -----------------------------------------------------------------------------
+	// Build the story
+	// -----------------------------------------------------------------------------
+	errorCode = buildStory();
 
+	if (errorCode != 0)
+	{
+		perror("Build story return %d\n", errorCode);
+		return -1;
+	}
 
+	// -----------------------------------------------------------------------------
 	// Introduction
+	// -----------------------------------------------------------------------------
 	printf("This is the introduction\n");
 
+	// -----------------------------------------------------------------------------
 	// Story Loop
-	while (scenes[SCENES - 1].complete != 0)
+	// -----------------------------------------------------------------------------
+
+	// Check if the last scene is complete
+	while (scenes[SCENES - 1].complete != 1)	
 	{
 
-		// Show once
+		// Show once (optional)
 		if (scenes[i].showOnce)
 		{
 			printf("%s\n", scenes[i].showOnce);
 		}
 
-
+		// -------------------------------------------------------------------------
 		// Scene Loop - Asks a question
-		while (scenes[i].complete != 0)
+		// -------------------------------------------------------------------------
+
+		// Loop until scene is complete
+		while (scenes[i].complete != 1)
 		{
 			// Show scenerio
 			if (scenes[i].scenerio)
@@ -49,11 +68,17 @@ int main(void)
 			}
 
 			// Get answer
+
+			// Print answer result
+
+			// Check if correct answer
 			
+
+			// Allow user
 			Sleep(10000);
 		}
 
-		System("cls");
+		system("cls");
 
 	}
 
