@@ -21,13 +21,13 @@ int buildStory(void)
 	strcpy(scenes[0].answers[0], "This happened when you choosed answer 1");
 	
 	// Answer 2
-	strcpy(scenes[0].answers[0], "This happened when you choosed answer 2");
+	strcpy(scenes[0].answers[1], "This happened when you choosed answer 2");
 
 	// Answer 3
-	strcpy(scenes[0].answers[0], "This happened when you choosed answer 3");
+	strcpy(scenes[0].answers[2], "This happened when you choosed answer 3");
 
 	// Answer 4
-	strcpy(scenes[0].answers[0], "This happened when you choosed answer 4");
+	strcpy(scenes[0].answers[3], "This happened when you choosed answer 4");
 
 	// Correct Answer
 	scenes[0].correctAnswer = 3; 

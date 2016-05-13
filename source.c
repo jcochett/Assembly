@@ -12,6 +12,7 @@ int main(void)
 {
 	int i = 0;
 	int errorCode = 0;
+	int userInput;
 
 	// -----------------------------------------------------------------------------
 	// Build the story
@@ -68,11 +69,16 @@ int main(void)
 			}
 
 			// Get answer
+			userInput = getUserInput();
 
 			// Print answer result
+			
 
 			// Check if correct answer
-			
+			if (scenes[i].correctAnswer == userInput)
+			{
+				scenes[i].complete = 1;
+			}
 
 			// Allow user
 			Sleep(10000);
