@@ -21,7 +21,7 @@ int main(void)
 
 	if (errorCode != 0)
 	{
-		perror("Build story return %d\n", errorCode);
+		perror("ERROR: Build story return %d\n", errorCode);
 		return -1;
 	}
 
@@ -29,6 +29,7 @@ int main(void)
 	// Introduction
 	// -----------------------------------------------------------------------------
 	printf("This is the introduction\n");
+
 
 	// -----------------------------------------------------------------------------
 	// Story Loop
@@ -51,6 +52,7 @@ int main(void)
 		// Loop until scene is complete
 		while (scenes[i].complete != 1)
 		{
+			// -------------------------------------------------------------------------
 			// Show scenerio
 			if (scenes[i].scenerio)
 			{
@@ -62,28 +64,38 @@ int main(void)
 				return -1;
 			}
 
+			// -------------------------------------------------------------------------
 			// Show menu
 			if (scenes[i].menu)
 			{
 				printf("%s", scenes[i].menu);
 			}
 
+			// -------------------------------------------------------------------------
 			// Get answer
 			userInput = getUserInput();
 
+			// -------------------------------------------------------------------------
 			// Print answer result
 			if (scenes[i].answers[userInput])
 			{
 				printf("%s", scenes[i].answers[userInput]);
 			}
+			else
+			{
+				perror("ERROR: Answer not found\n");
+				return -1;
+			}
 
+			// -------------------------------------------------------------------------
 			// Check if correct answer
 			if (scenes[i].correctAnswer == userInput)
 			{
 				scenes[i].complete = 1;
 			}
 
-			// Allow user
+			// -------------------------------------------------------------------------
+			// Allow user to read answer
 			Sleep(10000);
 		}
 

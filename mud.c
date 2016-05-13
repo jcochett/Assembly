@@ -45,21 +45,23 @@ int getUserInput(void)
 	int userInput = 0;
 	int goodInput = 0;	
 
+	printf("\n: ");
+
 	while (!goodInput)
 	{
-		printf("\n: ");
-		while ((userInput = getchar()) != '\n');
+		userInput = getchar();
+		while (getchar() != '\n');
 
-		if (userInput >= 0 && userInput <= 4)
+		if (userInput >= '1' && userInput <= '4')
 		{
 			goodInput = 1;
 		}
 		else
 		{
-			printf("Answer not understood, try again\n");
+			printf("Answer %d not understood, try again\n: ", userInput);
 		}
 	}
 
-	return userInput - 1;
+	return userInput - 49;
 
 }
