@@ -68,7 +68,7 @@ int main(void)
 			// Show menu
 			if (scenes[i].menu)
 			{
-				printf("%s", scenes[i].menu);
+				printf("%s\n", scenes[i].menu);
 			}
 
 			// -------------------------------------------------------------------------
@@ -79,7 +79,7 @@ int main(void)
 			// Print answer result
 			if (scenes[i].answers[userInput])
 			{
-				printf("%s", scenes[i].answers[userInput]);
+				printf("%s\n", scenes[i].answers[userInput]);
 			}
 			else
 			{
@@ -96,12 +96,15 @@ int main(void)
 
 			// -------------------------------------------------------------------------
 			// Allow user to read answer
-			Sleep(10000);
+			Sleep(5000);		
+			system("cls");
 		}
 
-		system("cls");
+
 
 	}
+
+	printf("The story is over\n");
 
 	return 0;
 }

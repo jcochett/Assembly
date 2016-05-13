@@ -29,7 +29,7 @@ int buildStory(void)
 	// Answer 4
 	strcpy(scenes[0].answers[3], "This happened when you choosed answer 4");
 
-	// Correct Answer
+	// Correct Answer  remember this is an INDEX 0 through 3
 	scenes[0].correctAnswer = 3; 
 	
 	// Complete is equal to 0
@@ -45,7 +45,7 @@ int getUserInput(void)
 	int userInput = 0;
 	int goodInput = 0;	
 
-	printf("\n: ");
+	printf("Input: ");
 
 	while (!goodInput)
 	{
@@ -58,7 +58,7 @@ int getUserInput(void)
 		}
 		else
 		{
-			printf("Answer %d not understood, try again\n: ", userInput);
+			printf("Answer %d not understood, try again: ", userInput);
 		}
 	}
 
