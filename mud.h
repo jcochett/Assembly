@@ -44,14 +44,5 @@ int buildStory(void);
 ********************************************************************************* */
 int getUserInput(void);
 
-/* *********************************************************************************
-* Name: showArt
-*
-* Purpose: Print the art for each scenerio
-*
-* Return: Return the index number 0 for success or -1 for error
-*
-********************************************************************************* */
-int showArt(int);
 
 #endif // !__MUD_HEADER_ROW2__

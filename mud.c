@@ -465,10 +465,10 @@ int buildStory(void)
 	); // char menu[1024])
 
 	// Answer 1
-	strcpy(scenes[9].answers[0], "This isn't a Japanese romance flic. Choose again.\n");
+	strcpy(scenes[9].answers[0], "That's right.  You win!\n");
 
 	// Answer 2
-	strcpy(scenes[9].answers[1], "Correct.  You are an unselfish team leader.  Well done.\n");  // Correct Answer
+	strcpy(scenes[9].answers[1], "Amusing but it doesn't work.\n");  // Correct Answer
 
 	// Answer 3
 	strcpy(scenes[9].answers[2], "Are you insane in the membrain?  Pick again.\n");
@@ -523,24 +523,3 @@ int getUserInput(void)
 
 }
 
-int showArt(int scene)
-{
-	char index0 = "";
-
-	char art[SCENES][4096];
-
-	strcpy(art[0], index0);
-	//strcpy(art[1], index1);
-	//strcpy(art[2], index2);
-	//strcpy(art[3], index3);
-	//strcpy(art[4], index4);
-	//strcpy(art[5], index5);
-	//strcpy(art[6], index6);
-	//strcpy(art[7], index7);
-	//strcpy(art[8], index8);
-	//strcpy(art[9], index9);
-
-	printf("%s\n", art[0]);
-
-	return 0;
-}
