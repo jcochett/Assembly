@@ -109,6 +109,9 @@ int main(void)
 			Sleep(5000);		
 			system("cls");
 		}
+
+		// Next scenerio
+		i++;
 	}
 
 
