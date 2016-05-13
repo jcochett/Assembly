@@ -1,7 +1,14 @@
 #include "mud.h"
 #include <string.h>
 
-
+/* *********************************************************************************
+ * Name: buildStory
+ *
+ * Purpose: Builds the story into the global array of structs called scences
+ *
+ * Return: Return 0 on success and -1 on error
+ *
+ ********************************************************************************* */
 int buildStory(void)
 {
 	// -----------------------------------------------------------------------------
@@ -40,6 +47,14 @@ int buildStory(void)
 }
 
 
+/* *********************************************************************************
+ * Name: getUserInput
+ *
+ * Purpose: Get input for question 1 - 4
+ *
+ * Return: Return the index number 0 - 3 for the correct answer
+ *
+ ********************************************************************************* */
 int getUserInput(void)
 {
 	int userInput = 0;

@@ -1,6 +1,8 @@
 /*
-MUD
-*/
+ *
+ * MUD
+ *
+ */
 
 #define _CRT_SECURE_NO_WARNING
 #include <stdio.h>
@@ -109,7 +111,12 @@ int main(void)
 		}
 	}
 
+
+	// Story Conclusion
 	printf("The story is over\n");
+
+
+	Sleep(20000);
 
 	return 0;
 }

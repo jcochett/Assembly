@@ -1,15 +1,19 @@
 Multi-User Dungeon Game Script
 Backdrop:  The vile dragon Harkeus has abducted Princess Stephanie, and threatens to eat her unless the townspeople can muster an enormous ransom of gold by 1 June.  Princess Stephanie's little brother, Prince Steve, has been weakened by inactivity and is powerless to defeat the dragon on his own.  He has called on you, Jason, and your ragtag team of soldiers of fortune, for assistance.
-1. Needing information and refreshment, you seek out the local tavern.  Once inside, you order a pint of mead and talk to the friendly barkeep Matteus, who tells you which direction to go to find Harkeus' lair.  You must decide how to care for your team that night:
+1. (Index 0) Needing information and refreshment, you seek out the local tavern.  Once inside, you order a pint of mead and talk to the friendly barkeep Matteus, who tells you which direction to go to find Harkeus' lair.  You must decide how to care for your team that night:
 A.  Give them a stern OPSEC briefing and allow them to fend for themselves.
 B.  Pay the team in advance and secure lodging for them in an upper room.
 C.  Forget about your team and gorge yourself on braised meat and root vegetables.
-2. The next day while traveling toward Harkeus' lair, you're stopped on the road by the grisly troll Vogeler who demands payment so you can pass.   As he taunts you, Vogeler brags about having a map of the underground dragon chamber, which he had taken from another hapless traveler. 
+2. (Index 1) The next day while traveling toward Harkeus' lair, you're stopped on the road by the grisly troll Vogeler who demands payment so you can pass.   As he taunts you, Vogeler brags about having a map of the underground dragon chamber, which he had taken from another hapless traveler. 
 A. Use your Mace of Recursion to bludgeon Vogeler repeatedly until he gives up the map and allows you to pass.  
 B. Pay Vogeler all the money and half the weapons your team has in their possession, then proceed down the road.
 C. Hurl curses at Vogeler as you turn around and try to find a different path to Harkeus' lair.
-3. You planned to stop that night at the seaside town of Kellack, knowing it offers safe refuge for travelers.  However, Kellack was recently taken over by a band of Attican pirates, who are rich with loot from another town further down the coast.  Tonight the pirates are all drunk on grog and do not seem hostile, but you know that Atticans are dangerous.  You decide to:
+3. (Index 2) You planned to stop that night at the seaside town of Kellack, knowing it offers safe refuge for travelers.  However, Kellack was recently taken over by a band of Attican pirates, who are rich with loot from another town further down the coast.  Tonight the pirates are all drunk on grog and do not seem hostile, but you know that Atticans are dangerous.  You decide to:
 A. Befriend the pirates and listen to their wild sea stories, hoping to learn some useful information.
 B. Exercise caution and set up camp for the night just on the other side of Kellack.
 C. Travel on through the night because you want to get as far as possible from Kellack.
-jcochett@gmail.com
+4.   (Index 3) In the morning, your team is a little queasy so you send two teammates to hunt for breakfast in a nearby forest.  When your comrades do not return in due time, you go searching for them and find that they have fallen into a pit designed to keep intelopers away from the realm of the Woodland Fairies.  The fairies are about to use their woodland magic to turn your teammates into salamanders.  
+	A.  Abandon your friends to a fate of eating grubs and trying to keep their skin moist.
+	B.  Kill the fairies and use a linked list to pull your friends out of the pit.
+	C.  Prince Steve, who has been useless up to this point, communicates with the fairies through interpretive dance, and convinces them to release his friends.
+
