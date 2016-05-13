@@ -351,7 +351,7 @@ int buildStory(void)
 	strcpy(scenes[6].answers[2], "The door is magical and strong, your brute force is of no avail. Try Again. \n");
 	
 	// Answer 4
-	strcpy(scenes[6].answers[3], "Noecanth is delighted with you kindness and finds your bread so delicious that he opens the gate for you. \n");
+	strcpy(scenes[6].answers[3], "Noecanth is delighted with your kindness and finds your bread so delicious that he opens the gate for you. \n");
 	
 	// Correct Answer  remember this is an INDEX 0 through 3
 	scenes[6].correctAnswer = 3;
@@ -394,7 +394,7 @@ int buildStory(void)
 	strcpy(scenes[7].answers[3], "You spend too much time analyzing the maze and decide that a better option is possible\n");
 
 	// Correct Answer  remember this is an INDEX 0 through 3
-	scenes[7].correctAnswer = 2;
+	scenes[7].correctAnswer = 1;
 
 	// Complete is equal to 0
 	scenes[7].complete = 0;
@@ -442,35 +442,39 @@ int buildStory(void)
 	// -----------------------------------------------------------------------------
 	// SCENE INDEX 9
 	// -----------------------------------------------------------------------------
-	strcpy(scenes[9].showOnce, "Scene 10 - Time for an Epic Win Win \n"); // char showOnce[1024]
+	strcpy(scenes[9].showOnce, "Scene 10 - That's a big sword you have there.\n"); // char showOnce[1024]
 
 	// Scenerio
 	strcpy(scenes[9].scenerio,
-	"XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX \n"
-	"XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX \n"
-	"XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX \n"
+	"Since neither you nor Harkeus can see each other, you have the upper hand.  First, you attempt to \n"
+	"slay Harkeus by using your crossbow to shoot him through a gap in his scales.  The bolt misses the \n"
+	"gap, and Harkeus laughs at you again.  Then you attempt to use your magic Sword of Power to slay \n"
+	"the dragon.  What comes next is : \n"
 	); // char scenerio[4096]
 
 	// Menu
 	strcpy(scenes[9].menu,
-	"1) XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX\n"				// Index 0
-	"2) XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX\n"				// Index 1
-	"3) XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX\n"				// Index 2 Correct
-	"   XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX.\n"				// This is an extra line, if you need one
-	"4) XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX\n"				// Index 3
+	"1) The sword lives up to its name, you barbeque the dragon, and consummate your marriage to Princess \n"				// Index 0
+	"   Stephanie while your team feasts on roasted dragon meat.\n"				// This is an extra line, if you need one
+	"2) Prince Steven distracts Harkeus with his rendition of 'Gangnam Style', you rescue the Princess, \n"				// Index 1
+	"   and she pays you a hefty reward, which you divvy up among your team.\n"				// This is an extra line, if you need one
+	"3) Harkeus wins, and you are forced to spend the next 11 weeks traversing the linked structure\n"				// Index 2 Correct
+	"   house of pain, which drives you insane.\n"				// This is an extra line, if you need one
+	"4) Just as you and Harkeus lunge at each other, the putrid smell of skunk juice fills the room.\n"				// Index 3
+	"   Everyone evacuates the facility and agrees to take up the fight at a later date.\n"				// This is an extra line, if you need one
 	); // char menu[1024])
 
 	// Answer 1
-	strcpy(scenes[9].answers[0], "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX\n");
+	strcpy(scenes[9].answers[0], "This isn't a Japanese romance flic. Choose again.\n");
 
 	// Answer 2
-	strcpy(scenes[9].answers[1], "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX\n");  // Correct Answer
+	strcpy(scenes[9].answers[1], "Correct.  You are an unselfish team leader.  Well done.\n");  // Correct Answer
 
 	// Answer 3
-	strcpy(scenes[9].answers[2], "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX\n");
+	strcpy(scenes[9].answers[2], "Are you insane in the membrain?  Pick again.\n");
 
 	// Answer 4
-	strcpy(scenes[9].answers[3], "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX\n");
+	strcpy(scenes[9].answers[3], "That only happens in real life.  Pick your nose then pick again.\n");
 
 	// Correct Answer  remember this is an INDEX 0 through 3
 	scenes[9].correctAnswer = 1;
@@ -517,4 +521,26 @@ int getUserInput(void)
 
 	return userInput - 49;
 
+}
+
+int showArt(int scene)
+{
+	char index0 = "";
+
+	char art[SCENES][4096];
+
+	strcpy(art[0], index0);
+	//strcpy(art[1], index1);
+	//strcpy(art[2], index2);
+	//strcpy(art[3], index3);
+	//strcpy(art[4], index4);
+	//strcpy(art[5], index5);
+	//strcpy(art[6], index6);
+	//strcpy(art[7], index7);
+	//strcpy(art[8], index8);
+	//strcpy(art[9], index9);
+
+	printf("%s\n", art[0]);
+
+	return 0;
 }

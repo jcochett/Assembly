@@ -26,12 +26,9 @@ int main(void)
 		perror("ERROR: Build story return %d\n", errorCode);
 		return -1;
 	}
-	else
-	{
-		printf("%d Scenes loaded\n", SCENES);
-		Sleep(2000);
-		system("cls");
-	}
+
+
+	printf("\n");
 
 	// -----------------------------------------------------------------------------
 	// Introduction
@@ -59,6 +56,9 @@ int main(void)
 		{
 			printf("%s\n", scenes[i].showOnce);
 		}
+
+		//showArt(i);
+		//return 0;
 
 		// -------------------------------------------------------------------------
 		// Scene Loop - Asks a question
@@ -132,3 +132,5 @@ int main(void)
 
 	return 0;
 }
+
+
