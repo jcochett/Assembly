@@ -72,7 +72,10 @@ int main(void)
 			userInput = getUserInput();
 
 			// Print answer result
-			
+			if (scenes[i].answers[userInput])
+			{
+				printf("%s", scenes[i].answers[userInput]);
+			}
 
 			// Check if correct answer
 			if (scenes[i].correctAnswer == userInput)

@@ -38,3 +38,28 @@ int buildStory(void)
 
 	return 0;
 }
+
+
+int getUserInput(void)
+{
+	int userInput = 0;
+	int goodInput = 0;	
+
+	while (!goodInput)
+	{
+		printf("\n: ");
+		while ((userInput = getchar()) != '\n');
+
+		if (userInput >= 0 && userInput <= 4)
+		{
+			goodInput = 1;
+		}
+		else
+		{
+			printf("Answer not understood, try again\n");
+		}
+	}
+
+	return userInput - 1;
+
+}

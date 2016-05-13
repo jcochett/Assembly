@@ -16,6 +16,7 @@ struct story
 
 
 int buildStory(void);
+int getUserInput(void);
 
 
 #endif // !__MUD_HEADER_ROW2__
