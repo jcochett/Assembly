@@ -28,7 +28,14 @@ int main(void)
 	// -----------------------------------------------------------------------------
 	// Introduction
 	// -----------------------------------------------------------------------------
-	printf("This is the introduction\n");
+	printf(
+		"The vile dragon Harkeus has abducted Princess Stephanie, and threatens to \n"
+		"eat her unless the townspeople can muster an enormous ransom of gold by 1 \n"
+		"June.  Princess Stephanie's little brother, Prince Steve, has been weakened \n"
+		"by inactivity and is powerless to defeat the dragon on his own.  He has \n"
+		"called on you, Lee the Great, and your ragtag team of soldiers of fortune, \n"
+		"for assistance.\n\n"
+	);
 
 
 	// -----------------------------------------------------------------------------
