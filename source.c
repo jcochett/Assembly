@@ -91,6 +91,7 @@ int main(void)
 			// Check if correct answer
 			if (scenes[i].correctAnswer == userInput)
 			{
+				printf("Correct Answer\n");
 				scenes[i].complete = 1;
 			}
 
@@ -99,9 +100,6 @@ int main(void)
 			Sleep(5000);		
 			system("cls");
 		}
-
-
-
 	}
 
 	printf("The story is over\n");
