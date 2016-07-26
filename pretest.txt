@@ -1,0 +1,331 @@
+bits 32
+
+section .text
+
+global _add, _array_sum@4, _str_cpy, _reverse_word, _str_cmp, _strstr_asm, _atoi_asm
+
+
+; Add the two provided integers together and return the sum
+;
+_add:
+	push ebp		;set up stack frame
+	mov ebp, esp
+	push esi		;preserve registers
+	push edi
+	push ebx
+	mov esi, [ebp+8]	;contains int a
+	mov edi, [ebp+0xc]	;contains int b
+
+	; ----------------------------------------------------------------------------
+	;Code goes here. Place return value in eax
+	mov eax, esi
+	add eax, edi
+	; ----------------------------------------------------------------------------
+
+	pop ebx			;restore registers
+	pop edi
+	pop esi
+	;mov esp, ebp	;reset stack frame
+	pop ebp
+
+	ret
+
+
+; This function uses the __stdcall convention. Given an array of length 4,
+; sum the elements together and return the total
+;
+_array_sum@4:	
+	push ebp	;set up stack frame
+	mov ebp, esp
+	push esi	;preserve registers
+	push edi
+	push ebx
+	mov esi, [ebp+8]	;contains array
+
+	; ----------------------------------------------------------------------------
+	;Code goes here. Place return value in eax
+	mov eax, [esi]
+	add eax, [esi + 4]
+	add eax, [esi + 8]
+	add eax, [esi + 12]
+
+	; ----------------------------------------------------------------------------
+	pop ebx		;restore registers
+	pop edi
+	pop esi
+	mov esp, ebp	;reset stack frame
+	pop ebp
+
+	ret 4;??? <--- make sure to return correctly
+
+
+; Given a source string, copy its entire contents into the destination buffer
+;
+_str_cpy:
+	push ebp	;set up stack frame
+	mov ebp, esp
+	push esi	;preserve registers
+	push edi
+	push ebx
+	mov esi, [ebp+8]	;contains pointer to source string
+	mov edi, [ebp+0xc]	;contains pointer to empty string
+
+	; ----------------------------------------------------------------------------
+	;Code goes here.
+	.copyloop:
+		mov al, byte [esi]
+		test al, al
+		jz .finished
+		mov [edi], al
+		inc esi
+		inc edi
+		jmp .copyloop
+	.finished:
+	; ----------------------------------------------------------------------------
+
+	pop ebx		;restore registers
+	pop edi
+	pop esi
+	mov esp, ebp	;reset stack frame
+	pop ebp
+
+	ret
+
+
+; Given a word, reverse it and place it in the provided buffer.
+;
+_reverse_word:
+	push ebp	;set up stack frame
+	mov ebp, esp
+	push esi	;preserve registers
+	push edi
+	push ebx
+
+	mov esi, [ebp+8]	;contains source word
+	mov edi, [ebp+0xc]	;contains empty buffer
+
+	; ----------------------------------------------------------------------------
+	;Code goes here.
+	xor ecx, ecx
+	.strlen:					; Go backwards to get string length
+		mov al, byte [esi]
+		cmp al, 0
+		je .done
+		inc ecx
+		inc esi
+	jmp .strlen
+	.done:
+
+	dec esi		; Get ready to go backwards
+
+	.rev:						; Copy string esi backwards and edi forwards
+		mov al, byte [esi]
+		mov [edi], al
+		dec esi
+		inc edi
+		loop .rev
+
+	mov byte [edi], 0 
+
+	; ----------------------------------------------------------------------------
+
+
+	pop ebx		;restore registers
+	pop edi
+	pop esi
+	mov esp, ebp	;reset stack frame
+	pop ebp
+
+	ret
+
+
+; Given two strings, compare them and either return 0 if they match,
+; or a signed integer indicating the difference between the first non-matching
+; characters in String 1 and String 2. e.g. for "this" and "that", the first
+; non-match is at "i" in String 1. Your return value would be the difference
+; between "i" and "a". It should be positive if the String 1 character is greater
+; or negative if the String 1 character is lesser
+;
+_str_cmp:
+	push ebp	;set up the stack frame
+	mov ebp, esp
+	push esi	;preserve registers
+	push edi
+	push ebx
+
+	mov esi, [ebp+8]	;contains the first string
+	mov edi, [ebp+0xc]	;contains the second string
+
+	; ----------------------------------------------------------------------------	
+	;Code goes here. Place return value in eax
+	xor eax, eax
+	xor ebx, ebx
+	xor ecx, ecx
+	
+	.loop:
+		inc eax
+		mov bl, byte [esi]
+		mov cl, byte [edi]
+
+		cmp bl, cl
+		je .equal
+		jg .fin
+		jl .neg
+
+		.equal:
+		cmp bl, 0
+		je .same
+
+		inc esi
+		inc edi
+	jmp .loop
+	
+	.neg:
+		not eax
+		inc eax
+		jmp .fin
+		
+	.same:
+		xor eax, eax
+
+	.fin:
+
+	; ----------------------------------------------------------------------------
+
+	exit:
+	pop ebx		;restore registers
+	pop edi
+	pop esi
+	mov esp, ebp	;reset stack
+	pop ebp
+
+	ret
+
+
+; Your task here is essentially to implement strstr()... that is, to 
+; return a pointer to the first occurence in str1 of the entire sequence
+; of characters specified in str2.  The function prototype (C) is below:
+;
+; char* __cdecl strstr_asm(char* sentence, char* word)
+_strstr_asm:
+	push ebp
+	mov ebp, esp
+	push edi			;preserve registers
+	push esi
+	push ebx
+
+	mov eax, [ebp + 8]  ;EAX now holds the sentence
+	mov ebx, [ebp + 12]	;EBX now holds the word
+
+	; ----------------------------------------------------------------------------
+	;code begin
+	;int3				;debug break
+	
+	xor edx, edx
+	mov dl, byte [ebx]	; load 1st word char 
+	test dl, dl
+	jz .returnnull
+
+	.charscan:
+		mov dh, byte [eax]	; load 1st sent char
+		cmp dh, 0			; end of sentence
+		je .returnnull
+
+		cmp dl, dh			; compare chars word and sentence
+		je .wordsearch
+
+		inc eax				; next char in sentence
+		jmp .charscan
+
+	.wordsearch:
+		push eax
+		push ebx
+
+	.wordloop:
+		inc eax		; next char
+		inc ebx		; next char
+
+		mov dl, byte [ebx]	; load next word char
+		mov dh, byte [eax]	; load next sent char
+				
+		test dl, dl			; word string terminator found
+		jz	.foundword		
+
+		test dh, dh
+		jz .resetscan		; sentence string terminator found
+
+		cmp dl, dh			; compare chars word and sentence
+		je .wordloop
+	
+	.resetscan:				; fall through if not equal
+		pop ebx
+		mov dl, byte [ebx]
+		pop eax
+		inc eax
+		jmp .charscan		; ready to continue scanning
+
+	.foundword:
+		pop ebx
+		pop eax
+		jmp .endstrstr
+
+	.returnnull:
+		xor eax, eax
+
+	.endstrstr:
+
+	;code end
+	; ----------------------------------------------------------------------------
+
+	pop ebx
+	pop esi
+	pop edi
+	mov esp, ebp
+	pop ebp
+
+	ret
+
+
+; Your task here is essentially to implement atoi()... that is, to 
+; parse the string and interpret its content as an integral number which
+; is returned as a an int.  The function prototype (C) is below:
+;
+; int __cdecl atoi_asm(char* buffer)
+_atoi_asm:
+	push ebp
+	mov ebp, esp
+	push edi			;preserve registers
+	push esi
+	push ebx
+
+	mov eax, [ebp + 8]  ;EAX now holds the buffer
+
+	; ----------------------------------------------------------------------------
+	;code begin
+	;int3				;debug break
+	mov esi, eax
+	xor eax, eax
+	mov ecx, 10			; Multiplier
+	xor ebx, ebx
+
+	.atoi:
+		mov bl, byte [esi]	; Get the char
+		test bl, bl			; Check for null
+		jz .fin
+		mul ecx				; Move current number over by 10
+		sub bl, 48			; Subtract ascii value
+		add eax, ebx		; Add to current number
+		inc esi				; Next value
+		jmp .atoi
+	.fin:
+		
+	;code end
+	; ----------------------------------------------------------------------------
+
+	pop ebx
+	pop esi
+	pop edi
+	mov esp, ebp
+	pop ebp
+
+	ret 
