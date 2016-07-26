@@ -1,0 +1,229 @@
+#include <iostream>
+#include <string>
+#include <Windows.h>
+
+// --------------------------------------------------------------------------------------------------
+// Func_0  
+// 
+// //Func_0(x)			10001330 1			_Func_0@4
+// --------------------------------------------------------------------------------------------------
+int Func_0(void)
+{
+	std::cout << "Func_0 running..." << std::endl;
+
+	HMODULE hm = NULL;
+	char *(__stdcall *dynamicFunction)(char[]) = NULL;
+	int result = 0;
+	char *ret;
+
+
+	if (NULL == (hm = LoadLibraryA("test_x86.dll"))) { printf("Failed to load library! %d\n", GetLastError()); return -1; }
+
+	dynamicFunction = (char *(__stdcall*)(char[]))GetProcAddress(hm, "_Func_0@4");	// Name found in IDA exports
+	if (NULL == dynamicFunction) {
+		printf("Failed to find func! %d\n", GetLastError());
+		return -2;
+	}
+
+	char a1[] = "func0.txt";
+	ret = dynamicFunction(a1);
+
+	printf("%s", ret);
+
+	FreeLibrary(hm);
+	return result;
+}
+
+// --------------------------------------------------------------------------------------------------
+// Func_1  
+// 
+// 		//Func_1(x)			10001470 2			_Func_1@4
+// --------------------------------------------------------------------------------------------------
+int Func_1(void)
+{
+	std::cout << "Func_1 running..." << std::endl;
+
+	HMODULE hm = NULL;
+	int(__stdcall *dynamicFunction)(char[]) = NULL;
+	int result = 0;
+
+
+	if (NULL == (hm = LoadLibraryA("test_x86.dll"))) { printf("Failed to load library! %d\n", GetLastError()); return -1; }
+
+	dynamicFunction = (int(__stdcall*)(char[]))GetProcAddress(hm, "_Func_1@4");	// Name found in IDA exports
+	if (NULL == dynamicFunction) {
+		printf("Failed to find func! %d\n", GetLastError());
+		return -2;
+	}
+
+	char a1[] = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";
+	result = dynamicFunction(a1);
+
+	FreeLibrary(hm);
+	return result;
+}
+
+
+// --------------------------------------------------------------------------------------------------
+// Func_2  
+// 
+// 		//Func_2(x)			10001500 3			_Func_2@4
+// --------------------------------------------------------------------------------------------------
+int Func_2(void)
+{
+	std::cout << "Func_2 running..." << std::endl;
+
+	HMODULE hm = NULL;
+	int(__stdcall *dynamicFunction)(char[]) = NULL;
+	int result = 0;
+
+
+	if (NULL == (hm = LoadLibraryA("test_x86.dll"))) { printf("Failed to load library! %d\n", GetLastError()); return -1; }
+
+	dynamicFunction = (int(__stdcall*)(char[]))GetProcAddress(hm, "_Func_2@4");	// Name found in IDA exports
+	if (NULL == dynamicFunction) {
+		printf("Failed to find func! %d\n", GetLastError());
+		return -2;
+	}
+
+	char a1[] = "aaa"; // "abcdefghijklmnopqrstuvwxyz";
+	result = dynamicFunction(a1);
+
+	FreeLibrary(hm);
+	return result;
+}
+
+
+// --------------------------------------------------------------------------------------------------
+// Func_3  
+// 
+// 		//Func_3(x, x)		10001550 4			_Func_3@8
+// --------------------------------------------------------------------------------------------------
+int Func_3(void)
+{
+	std::cout << "Func_3 running..." << std::endl;
+
+	HMODULE hm = NULL;
+	int(__stdcall *dynamicFunction)(char[], int) = NULL;
+	int result = 0;
+
+
+	if (NULL == (hm = LoadLibraryA("test_x86.dll"))) { printf("Failed to load library! %d\n", GetLastError()); return -1; }
+
+	dynamicFunction = (int(__stdcall*)(char[], int))GetProcAddress(hm, "_Func_3@8");	// Name found in IDA exports
+	if (NULL == dynamicFunction) {
+		printf("Failed to find func! %d\n", GetLastError());
+		return -2;
+	}
+
+	char a1[] = "abcdefghijklmnopqrstuvwxyz";
+	int a2 = 30;
+	result = dynamicFunction(a1, a2);
+
+	FreeLibrary(hm);
+	return result;
+}
+
+
+// --------------------------------------------------------------------------------------------------
+// Func_4  
+// 
+// 		//Func_4(x, x)		10001710 5			_Func_4@8
+// --------------------------------------------------------------------------------------------------
+int Func_4(void)
+{
+	std::cout << "Func_4 running..." << std::endl;
+
+	HMODULE hm = NULL;
+	char *(__stdcall *dynamicFunction)(char[], int) = NULL;
+	int result = 0;
+	char *ret;
+
+	if (NULL == (hm = LoadLibraryA("test_x86.dll"))) { printf("Failed to load library! %d\n", GetLastError()); return -1; }
+
+	dynamicFunction = (char *(__stdcall*)(char[], int))GetProcAddress(hm, "_Func_4@8");	// Name found in IDA exports
+	if (NULL == dynamicFunction) {
+		printf("Failed to find func! %d\n", GetLastError());
+		return -2;
+	}
+
+	char a1[] = "hello"; //aGVsbG8= 
+	int a2 = 5;
+	ret = dynamicFunction(a1, a2);
+	printf("%s", ret);
+
+	FreeLibrary(hm);
+	return result;
+}
+
+
+// --------------------------------------------------------------------------------------------------
+// Func_Bonus  
+// 
+// 		//Func_Bonus(x, x)	10001810 6			_Func_Bonus@8
+// --------------------------------------------------------------------------------------------------
+int Func_Bonus(void)
+{
+	std::cout << "Func_Bonuss running..." << std::endl;
+
+	HMODULE hm = NULL;
+	int(__stdcall *dynamicFunction)(int *, int) = NULL;
+	int result = 0;
+
+
+	if (NULL == (hm = LoadLibraryA("test_x86.dll"))) { printf("Failed to load library! %d\n", GetLastError()); return -1; }
+
+	dynamicFunction = (int(__stdcall*)(int *, int))GetProcAddress(hm, "_Func_Bonus@8");	// Name found in IDA exports
+	if (NULL == dynamicFunction) {
+		printf("Failed to find func! %d\n", GetLastError());
+		return -2;
+	}
+
+	//int a1[5] = {5,4,3,2,1 };
+	int a1[100000]; int i;
+	for (i = 0; i <100000; i++) a1[i] = i;
+	
+	int a2 = 100000;
+	result = dynamicFunction(&a1[0], a2);
+
+	FreeLibrary(hm);
+	return result;
+}
+
+
+
+
+int main(void)
+{
+
+		//Name				Address  Ordinal
+		//----				------ - ------ -
+		//Func_0(x)			10001330 1			_Func_0@4
+		//Func_1(x)			10001470 2			_Func_1@4
+		//Func_2(x)			10001500 3			_Func_2@4
+		//Func_3(x, x)		10001550 4			_Func_3@8
+		//Func_4(x, x)		10001710 5			_Func_4@8
+		//Func_Bonus(x, x)	10001810 6			_Func_Bonus@8
+		//DllEntryPoint		10001CEF[main entry]
+
+
+	//int ret = Func_0();
+	//std::cout << ret << std::endl;
+
+	//int ret = Func_1();
+	//std::cout << ret << std::endl;
+
+	//int ret = Func_2();
+	//std::cout << ret << std::endl;
+
+	//int ret = Func_3();
+	//std::cout << ret << std::endl;
+
+	//int ret = Func_4();
+	//std::cout << ret << std::endl;
+
+	int ret = Func_Bonus();
+	std::cout << ret << std::endl;
+
+	return 0;
+}

@@ -1,0 +1,1211 @@
+
+########################################################################################################################
+#
+#
+#	ASSEMBLELAB1
+#
+#
+#
+########################################################################################################################
+
+#include <iostream>
+#include <random>
+#include <Windows.h>
+#include <Wtsapi32.h>
+#pragma comment(lib, "Wtsapi32.lib")
+#include <afxtempl.h>
+
+int lab1a(int x, int y)
+{
+	return x + y;
+}
+
+int lab1b(int x)
+{
+	for (int i = 0; i < x; x++)
+	{
+		int r = rand();
+		// eax = eax / ecx
+		// edx = eax % ecx
+		// eax = rand() / ecx = 90
+		int t = rand() % 90;
+		printf("%c\n", t);
+	}
+	return x;
+}
+
+
+
+
+
+void lab2a(void) {
+	LARGE_INTEGER lpPerformanceCount;
+	int var_2C = -44;
+
+
+	// condition 1 jnz
+	if (!QueryPerformanceCounter(&lpPerformanceCount))
+	{
+		printf("Failed to get counter value\n");
+	}
+	
+
+}
+
+#include <stdio.h>
+void lab2b(void)
+{
+	char c;
+	printf("Enter Thing:\n");
+	fscanf(stdin, "%c", &c);
+
+	// 
+}
+
+DWORD  lab3a(CArray<WTS_PROCESS_INFO>& arrProcInfo)
+{
+	// clear output array
+	arrProcInfo.RemoveAll();
+	// init WTSEnumerateProcessesEx parameters
+	HANDLE hServer = WTS_CURRENT_SERVER_HANDLE; // get local machine processes
+	DWORD dwLevel = 1;                          // get array of WTS_PROCESS_INFO_EX
+	DWORD dwSessionID = WTS_ANY_SESSION;        // get processes in all sessions
+	DWORD dwCount = 0;                          // returns the number of processes
+	PWTS_PROCESS_INFO_EX  pProcessInfo = NULL;  // output data
+
+	if (!WTSEnumerateProcessesEx(hServer, &dwLevel, dwSessionID, (LPTSTR*)&pProcessInfo, &dwCount))
+	{
+		return ::GetLastError();
+	}
+
+	// fill output array
+	arrProcInfo.SetSize(dwCount);
+
+	for (int i = 0; i < dwCount; ++i) {
+		printf("%lu : %s\n", pProcessInfo[i].ProcessId, pProcessInfo[i].pProcessName);
+	}
+
+	// free the memory allocated in WTSEnumerateProcessesEx
+	WTSFreeMemory(pProcessInfo);
+
+	return NO_ERROR;
+
+}
+
+
+int main(void)
+{
+	srand(GetTickCount());
+	int a = rand();
+	int b = rand();
+	int c;
+	CArray<WTS_PROCESS_INFO> arrProcInfo;
+		lab3a(arrProcInfo);
+	
+	
+	//printf("%d\n", c);
+
+	return 0;
+}
+
+
+
+
+
+########################################################################################################################
+#
+#
+#	ASSEMBLY02
+#
+#
+#
+########################################################################################################################
+
+#include <iostream>
+#include <Windows.h>
+#include <WtsApi32.h>
+#pragma comment(lib, "wtsapi32.lib") 
+
+#include <cmath>
+#include <time.h>
+
+
+
+
+int lab3a(void)
+{
+	PWTS_PROCESS_INFOA ppProcessInfo;
+	DWORD             pCount;
+
+	if (WTSEnumerateProcessesA(WTS_CURRENT_SERVER_HANDLE, 0, 1, &ppProcessInfo, &pCount) != 0)
+	{
+		for (DWORD CurrentProcess = 0; CurrentProcess < pCount; CurrentProcess++)
+		{
+		
+			std::cout << ppProcessInfo[CurrentProcess].ProcessId << ":" << ppProcessInfo[CurrentProcess].pProcessName << std::endl;
+		}
+	}
+
+	return 0;
+
+}
+
+
+int lab3b(int eax)
+{
+	int edx = 0;
+
+	eax = (eax + 1) * eax;
+	eax = eax - edx;
+	eax = eax >> 1;
+
+	return eax;
+}
+
+int sub_1001230(double a)
+{
+
+	double b = 0.5;  // square root
+	int var_4 = 1;
+	int var_8;
+	int var_c = 0;
+	//int var_14;
+	//int var_1c;
+
+	
+	var_8 = int(pow(a, b));
+
+LOOP1:
+	if (var_4 >= var_8)
+	{
+		if (a == var_8 * var_8)
+		{
+			var_c -= 1;
+		}
+		else
+		{
+			return var_c;
+		}
+	}
+	else
+	{
+		if (int(a) % var_4 == 0)
+			var_c += 2;
+		
+		var_4 += 1;
+
+		std::cout << "var_4: " << var_4 << " and var_c: " << var_c << " and var_c: " << var_c << std::endl;
+		goto LOOP1;
+	}
+}
+
+int main(void)
+{
+	//lab3a();
+	int ret;
+
+	//srand(time(NULL));
+	//int eax = rand();
+
+
+	double eax = 99;
+	std::cout << eax << std::endl;	
+	ret = lab3b(eax);
+	std::cout << ret << std::endl;
+	ret = sub_1001230(ret);
+
+
+	std::cout << ret << std::endl;
+
+	return 0;
+}
+
+
+
+
+
+
+
+########################################################################################################################
+#
+#
+#	LAB3 - REDIST
+#
+#
+#
+########################################################################################################################
+
+
+x = "Guvf vf vaqrrq gur xrl. Lbh unir sbhaq pyrneyl sbhaq vg, naq fhpprrqrq ng guvf punyyratr"
+x = x.lower()
+
+mylist = []
+for a in x:
+    if ord(a) == ord(' '): 
+        mylist.append(chr(ord(a)))
+        continue
+    elif a.isalpha():
+        v = ord(a) - ord('a')
+        v += 13
+        m = v % 26 
+        v = m + ord('a')
+    mylist.append(chr(v))
+
+print ''.join(mylist)
+
+
+
+
+
+########################################################################################################################
+#
+#
+#	LAB 4
+#
+#
+#
+########################################################################################################################
+
+
+########################################################################################################################
+#
+#
+#	LAB4 - QUIZ
+#
+#
+#
+########################################################################################################################
+#include <iostream>
+#include <string>
+#include <Windows.h>
+
+
+
+void lab4a(void) {
+	char *s = "This is a test string. Lorem ipsum and stuff.";
+
+	int hashcode1 = 0;
+	int hashcode2 = 0;
+
+	for (int i = 0; i < strlen(s); i++) {
+		hashcode1 = 31 * hashcode1 + s[i];
+		hashcode2 = (hashcode2 << 5) - hashcode2 + s[i];
+	}
+
+	printf("Hashcode1:  0x%X\n", hashcode1);
+	printf("Hashcode2:  0x%X\n", hashcode2);
+	printf("Goal: 0xd0b1d0e6\n");
+
+	return;
+}
+
+void lab4b(int len)
+{
+	HANDLE WINAPI h = GetProcessHeap();
+	if (HeapAlloc(h, HEAP_ZERO_MEMORY, len) == NULL) return;
+	char name[100];
+
+	fprintf(stdout, "Enter your name: ");
+
+	std::cin >> name;
+
+	std::cout << name;
+}
+
+int quiz(void)
+{
+	// Our module
+	HMODULE hm = NULL;
+	// Our dynamic function pointer
+	int(__stdcall *dynamicFunction)(char *, char *) = NULL;
+	int result = 0;
+
+	// try to load a dll,return if we can't find it!
+	if (NULL == (hm = LoadLibraryA("re_lab4.1_x86.dll"))) {				// DLL placed in Debug folder where the .exe is located
+		printf("Failed to load library! %d\n", GetLastError());
+		return -1;
+	}
+	// Try to find an exported function.If it were exported by
+	// ordinal, the 2nd param would change to: (char*)n, where
+	// n is the ordinal number. This is a bit strange,but is
+	// the way the API works.
+	dynamicFunction = (int(__stdcall*)(char *, char *))GetProcAddress(hm, "_Lab41@8");	// Name found in IDA exports
+	if (NULL == dynamicFunction) {
+		printf("Failed to find func! %d\n", GetLastError());
+		return -2;
+	}
+
+	//char *a1 = "MessageBox";
+	//char *a2 = "Hello";
+	//result = dynamicFunction(a1, a2);
+
+	char *a3 = "CreateFile";
+	char *a4 = "MyFile.txt";
+	result = dynamicFunction(a3, a4);	// Written to the source.cpp file location
+
+	char *a5 = "PrintFile";
+	char *a6 = "Uptown.txt";			// Read from the source.cpp file location
+	result = dynamicFunction(a5, a6);
+
+	// Now we FreeLibrary (since we are done with it now)
+	FreeLibrary(hm);
+
+	return result;
+}
+
+
+int main(void)
+{
+	//lab4a();
+	//lab4b(100);
+
+	int ret = quiz();
+	std::cout << ret << std::endl;
+
+	return 0;
+}
+
+
+
+
+########################################################################################################################
+#
+#
+#	LAB4 - RUNTIMELINKING
+#
+#
+#
+########################################################################################################################
+
+
+import ctypes
+
+c = ctypes.CDLL("REDll_x64.dll")
+c[1]()                             # Calling the method exported at ordinal 1
+c["ExportedByName"]()               # calling the method "MyFunc" exported by name
+
+
+
+
+
+
+
+
+########################################################################################################################
+#
+#
+#	LAB5 - PEFILE LAB
+#
+#
+#
+########################################################################################################################
+
+# PEFile Lab
+# Write a Python script using PEFile to enumerate all import
+#       and exports from Kernel32.dll, KernelBase.dll, and ntdll.dll,
+#       and store the results in a text file.
+# Additionally, enumerate the sections in each of those files.
+#
+import pefile
+
+kernel32 = pefile.PE("C:\Windows\System32\kernel32.dll")
+kernelbase = pefile.PE("C:\windows\System32\KernelBase.dll")
+ntdll = pefile.PE("C:\windows\System32\\ntdll.dll")
+
+if kernel32.is_dll(): print "True"
+else: print "False"
+
+if kernelbase.is_dll(): print "True"
+else: print "False"
+
+if ntdll.is_dll(): print "True"
+else: print "False"
+
+print("Kernel32.dll -------------------------------------------------------------------------\n")
+for sec in kernel32.sections:
+	print("{}: Virtual Address: {}, Size of raw data: {}".format(sec.Name,hex(sec.Misc_VirtualSize), hex(sec.SizeOfRawData)))
+
+print("KernelBase.dll -------------------------------------------------------------------------\n")
+for sec in kernelbase.sections:
+	print("{}: Virtual Address: {}, Size of raw data: {}".format(sec.Name,hex(sec.Misc_VirtualSize), hex(sec.SizeOfRawData)))
+
+print("ntdll.dll -------------------------------------------------------------------------\n")
+for sec in ntdll.sections:
+	print("{}: Virtual Address: {}, Size of raw data: {}".format(sec.Name,hex(sec.Misc_VirtualSize), hex(sec.SizeOfRawData)))
+
+
+with open('dll_info.txt', 'wb') as f:
+
+	# Kernel32
+	f.write("Kernel32.dll -------------------------------------------------------------------------\n")
+	# Imports
+	f.write("Imports:\n")
+	imps = { entry.dll :[ imp.name for imp in entry.imports ] for entry in kernel32.DIRECTORY_ENTRY_IMPORT }
+	for x in imps: f.write(x + '\n');
+	# Exports
+	f.write("Exports:\n")
+	exps = [(exp.name, exp.ordinal) for exp in kernel32.DIRECTORY_ENTRY_EXPORT.symbols]
+	for x in exps: f.write(str(x[1]) + '\t' + x[0] + '\n')
+
+	# KernelBase
+	f.write("KernelBase.dll -------------------------------------------------------------------------\n")
+	# Imports
+	f.write("Imports:\n")
+	imps = { entry.dll :[ imp.name for imp in entry.imports ] for entry in kernelbase.DIRECTORY_ENTRY_IMPORT }
+	for x in imps: f.write(x + '\n');
+	# Exports
+	f.write("Exports:\n")
+	exps = [(exp.name, exp.ordinal) for exp in kernelbase.DIRECTORY_ENTRY_EXPORT.symbols]
+	for x in exps: f.write(str(x[1]) + '\t' + x[0] + '\n')
+
+	# NTDLL
+	f.write("ntdll.dll -------------------------------------------------------------------------\n")
+	# Imports
+	f.write("Imports:\n")
+	try:
+		imps = { entry.dll :[ imp.name for imp in entry.imports ] for entry in kernelbase.DIRECTORY_ENTRY_IMPORT }
+		for x in imps: 
+			f.write(x + '\n');
+	except:
+		f.write("No Imports in ntdll\n")
+
+	# Exports
+	f.write("Exports:\n")
+	exps = [(exp.name, exp.ordinal) for exp in ntdll.DIRECTORY_ENTRY_EXPORT.symbols]
+	for x in exps: 
+		try:
+			f.write(str(x[1]) + '\t' + x[0] + '\n')
+		except:
+			f.write('Cannot print this one')
+
+
+
+
+
+
+
+
+
+########################################################################################################################
+#
+#
+#	LAB6
+#
+#
+#
+########################################################################################################################
+
+#include <iostream>
+#include <string>
+#include <Windows.h>
+
+// --------------------------------------------------------------------------------------------------
+// LAB6  
+// Changes the first arg2 letters in the string arg1
+// --------------------------------------------------------------------------------------------------
+int lab6(void)
+{
+	std::cout << "lab6 running..." << std::endl;
+
+	HMODULE hm = NULL;
+	int(__stdcall *dynamicFunction)(char [], int) = NULL;
+	int result = 0;
+
+
+	if (NULL == (hm = LoadLibraryA("lab6_dll_x86.dll"))) {	printf("Failed to load library! %d\n", GetLastError()); return -1; }
+	
+	dynamicFunction = (int(__stdcall*)(char [], int))GetProcAddress(hm, "_Lab6@8");	// Name found in IDA exports
+	if (NULL == dynamicFunction) {
+		printf("Failed to find func! %d\n", GetLastError());
+		return -2;
+	}
+
+	char a1[] = "abcdefghijklmnopqrstuvwxyz";
+	int a2 = 5;
+	result = dynamicFunction(a1, a2);
+
+	FreeLibrary(hm);
+	return result;
+}
+
+
+// --------------------------------------------------------------------------------------------------
+// LAB6  A
+// Writes arg3 number of bytes of string arg2 into a file names arg1
+// --------------------------------------------------------------------------------------------------
+int lab6a(void)
+{
+	std::cout << "lab6a running..." << std::endl;
+
+	HMODULE hm = NULL;
+	int(__stdcall *dynamicFunction)(char[], char[], int) = NULL;
+	int result = 0;
+
+
+	if (NULL == (hm = LoadLibraryA("lab6_dll_x86.dll"))) { printf("Failed to load library! %d\n", GetLastError()); return -1; }
+
+	dynamicFunction = (int(__stdcall*)(char[], char[], int))GetProcAddress(hm, "_Lab6a@12");	// Name found in IDA exports
+	if (NULL == dynamicFunction) {
+		printf("Failed to find func! %d\n", GetLastError());
+		return -2;
+	}
+
+
+	char a1[] = "lab6a.txt";
+	char a2[] = "abcdefghijklmnopqrstuvwxyz";
+	int a3 = 10;
+	result = dynamicFunction(a1, a2, a3);
+
+	FreeLibrary(hm);
+	return result;
+}
+
+// --------------------------------------------------------------------------------------------------
+// LAB6  B
+// Print a regkey/subkey arg1/arg2 to a file
+// --------------------------------------------------------------------------------------------------
+int lab6b(void)
+{
+	std::cout << "lab6b running..." << std::endl;
+
+	HMODULE hm = NULL;
+	int(__stdcall *dynamicFunction)(HKEY, char *, char[]) = NULL;
+	int result = 0;
+
+
+	if (NULL == (hm = LoadLibraryA("lab6_dll_x86.dll"))) { printf("Failed to load library! %d\n", GetLastError()); return -1; }
+
+	dynamicFunction = (int(__stdcall*)(HKEY, char *, char[]))GetProcAddress(hm, "_Lab6b@12");	// Name found in IDA exports
+	if (NULL == dynamicFunction) {
+		printf("Failed to find func! %d\n", GetLastError());
+		return -2;
+	}
+
+	char a3[] = "lab6b.txt";
+	
+	result = dynamicFunction(HKEY_LOCAL_MACHINE, "SOFTWARE", a3);
+
+	FreeLibrary(hm);
+	return result;
+}
+
+// --------------------------------------------------------------------------------------------------
+// LAB6 C
+// List files and folders recursively from a path (arg1) to a file (arg2)
+// --------------------------------------------------------------------------------------------------
+int lab6c(void)
+{
+	std::cout << "lab6c running..." << std::endl;
+
+	HMODULE hm = NULL;
+	int(__stdcall *dynamicFunction)(char[], char[]) = NULL;
+	int result = 0;
+
+
+	if (NULL == (hm = LoadLibraryA("lab6_dll_x86.dll"))) { printf("Failed to load library! %d\n", GetLastError()); return -1; }
+
+	dynamicFunction = (int(__stdcall*)(char[], char []))GetProcAddress(hm, "_Lab6c@8");	// Name found in IDA exports
+	if (NULL == dynamicFunction) {
+		printf("Failed to find func! %d\n", GetLastError());
+		return -2;
+	}
+
+	char a1[] = "C:\\Users\\DOT_13\\Desktop\\MQT\\Block 5 - Reverse Engineering\\Labs\\Lab6x\\Lab6x\\";
+	char a2[] = "lab6c.txt";
+	result = dynamicFunction(a1, a2);
+
+	FreeLibrary(hm);
+	return result;
+}
+
+
+
+// --------------------------------------------------------------------------------------------------
+// LAB6 D
+// Plays sound for inputs 6 7 8
+// --------------------------------------------------------------------------------------------------
+int lab6d(void)
+{
+	std::cout << "lab6d running..." << std::endl;
+
+	HMODULE hm = NULL;
+	int(__stdcall *dynamicFunction)(int) = NULL;
+	int result = 0;
+
+
+	if (NULL == (hm = LoadLibraryA("lab6_dll_x86.dll"))) { printf("Failed to load library! %d\n", GetLastError()); return -1; }
+
+	dynamicFunction = (int(__stdcall*)(int))GetProcAddress(hm, "_Lab6d@4");	// Name found in IDA exports
+	if (NULL == dynamicFunction) {
+		printf("Failed to find func! %d\n", GetLastError());
+		return -2;
+	}
+
+	result = dynamicFunction(6);
+	result = dynamicFunction(7);
+	result = dynamicFunction(8);
+
+	FreeLibrary(hm);
+	return result;
+}
+
+
+
+int main(void)
+{
+	//	Name          Address  Ordinal
+	//	----          ------ - ------ -
+	//	Lab6(x, x)		10001160 1	.rdata:10003807 00000008 C _Lab6@8
+	//	Lab6a(x, x, x)  100011B0 2	.rdata:1000380F 0000000A C _Lab6a@12
+	//	Lab6b(x, x, x)  10001620 3	.rdata:10003819 0000000A C _Lab6b@12
+	//	Lab6c(x, x)		10001A50 4	.rdata:10003823 00000009 C _Lab6c@8
+	//	Lab6d(x)		10001CB0 5	.rdata:1000382C 00000009 C _Lab6d@4
+	//	DllEntryPoint 100021A6[main entry]
+
+		
+
+	//int ret = lab6();
+	//std::cout << ret << std::endl;
+
+	//int ret = lab6a();
+	//std::cout << ret << std::endl;
+
+	//int ret = lab6b();
+	//std::cout << ret << std::endl;
+
+	//int ret = lab6c();
+	//std::cout << ret << std::endl;
+
+	//int ret = lab6d();
+	//std::cout << ret << std::endl;
+
+
+	return 0;
+}
+
+########################################################################################################################
+#
+#
+#	LAB7
+#
+#
+#
+########################################################################################################################
+
+
+#include <iostream>
+#include <string>
+#include <Windows.h>
+
+// --------------------------------------------------------------------------------------------------
+// LAB7  
+// strlen() implemention using arg1 and arg2
+// Lab7(x, x)	100012A0	1			_Lab7@8
+// --------------------------------------------------------------------------------------------------
+int lab7(void)
+{
+	std::cout << "lab7 running..." << std::endl;
+
+	HMODULE hm = NULL;
+	int(__stdcall *dynamicFunction)(char[], char[]) = NULL;
+	int result = 0;
+
+
+	if (NULL == (hm = LoadLibraryA("lab7.dll"))) { printf("Failed to load library! %d\n", GetLastError()); return -1; }
+
+	dynamicFunction = (int(__stdcall*)(char[], char[]))GetProcAddress(hm, "_Lab7@8");	// Name found in IDA exports
+	if (NULL == dynamicFunction) {
+		printf("Failed to find func! %d\n", GetLastError());
+		return -2;
+	}
+
+	char a1[] = "a"; // "abcdefghijklmnopqrstuvwxyz";
+	char a2[] = "a"; //"abcdefghijklmnopqrstuvwxyz";
+	result = dynamicFunction(a1, a2);
+
+	FreeLibrary(hm);
+	return result;
+}
+
+
+// --------------------------------------------------------------------------------------------------
+// LAB7  A
+// Waits (sleeps) for the number given (arg1)
+//Lab7a(x)		10001360	2			_Lab7a@4
+// --------------------------------------------------------------------------------------------------
+int lab7a(void)
+{
+	std::cout << "lab7a running..." << std::endl;
+
+	HMODULE hm = NULL;
+	int(__stdcall *dynamicFunction)(LARGE_INTEGER *) = NULL;
+	int result = 0;
+
+
+	if (NULL == (hm = LoadLibraryA("lab7.dll"))) { printf("Failed to load library! %d\n", GetLastError()); return -1; }
+
+	dynamicFunction = (int(__stdcall*)(LARGE_INTEGER *))GetProcAddress(hm, "_Lab7a@4");	// Name found in IDA exports
+	if (NULL == dynamicFunction) {
+		printf("Failed to find func! %d\n", GetLastError());
+		return -2;
+	}
+	
+	LARGE_INTEGER a1;
+	a1.LowPart = 1;
+	a1.HighPart = 0;
+	__debugbreak();
+	result = dynamicFunction(&a1);
+
+	FreeLibrary(hm);
+	return result;
+}
+
+// --------------------------------------------------------------------------------------------------
+// LAB7  B
+// 		Opens a program (arg1) and creates a file (arg2)
+// Arg1 = char* = LPSTR lpCommandLine = absolute path to an executable second arg of createprocess
+//Lab7b(x, x)	10001470	3			_Lab7b@8
+// --------------------------------------------------------------------------------------------------
+int lab7b(void)
+{
+	std::cout << "lab7b running..." << std::endl;
+
+	HMODULE hm = NULL;
+	int(__stdcall *dynamicFunction)(char *, char []) = NULL;
+	int result = 0;
+
+
+	if (NULL == (hm = LoadLibraryA("lab7.dll"))) { printf("Failed to load library! %d\n", GetLastError()); return -1; }
+
+	dynamicFunction = (int(__stdcall*)(char *, char []))GetProcAddress(hm, "_Lab7b@8");	// Name found in IDA exports
+	if (NULL == dynamicFunction) {
+		printf("Failed to find func! %d\n", GetLastError());
+		return -2;
+	}
+
+	char *a1= "C:\\Windows\\System32\\notepad.exe";
+	char a2[] = "Lab7b.txt";
+
+	result = dynamicFunction(a1, a2);
+
+	FreeLibrary(hm);
+	return result;
+}
+
+// --------------------------------------------------------------------------------------------------
+// LAB7 C
+// 
+// Function returns 1 for primes or error and 0 (success) for non-primes
+// 
+// Note: IDIV esi is eax/esi with edx holding the remainder 
+// 
+//Lab7c(x)		100017A0	4			_Lab7c@4
+// --------------------------------------------------------------------------------------------------
+int lab7c(void)
+{
+	std::cout << "lab7c running..." << std::endl;
+
+	HMODULE hm = NULL;
+	int(__stdcall *dynamicFunction)(int) = NULL;
+	int result = 0;
+
+
+	if (NULL == (hm = LoadLibraryA("lab7.dll"))) { printf("Failed to load library! %d\n", GetLastError()); return -1; }
+
+	dynamicFunction = (int(__stdcall*)(int))GetProcAddress(hm, "_Lab7c@4");	// Name found in IDA exports
+	if (NULL == dynamicFunction) {
+		printf("Failed to find func! %d\n", GetLastError());
+		return -2;
+	}
+
+	int a1 = 11;  // prime
+	result = dynamicFunction(a1);
+
+	FreeLibrary(hm);
+	return result;
+}
+
+
+
+// --------------------------------------------------------------------------------------------------
+// LAB7 D
+// Compares the string (arg1) with the contents of test.txt located where this source file is
+//
+// Note: push    3               ; dwCreationDisposition means that it should exist
+//Lab7d(x)		100017F0	5			_Lab7d@4
+// --------------------------------------------------------------------------------------------------
+int lab7d(void)
+{
+	std::cout << "lab7d running..." << std::endl;
+
+	HMODULE hm = NULL;
+	int(__stdcall *dynamicFunction)(char[]) = NULL;
+	int result = 0;
+
+
+	if (NULL == (hm = LoadLibraryA("lab7.dll"))) { printf("Failed to load library! %d\n", GetLastError()); return -1; }
+
+	dynamicFunction = (int(__stdcall*)(char[]))GetProcAddress(hm, "_Lab7d@4");	// Name found in IDA exports
+	if (NULL == dynamicFunction) {
+		printf("Failed to find func! %d\n", GetLastError());
+		return -2;
+	}
+
+	char a1[] = "hello";  // contents of test.txt same
+	result = dynamicFunction(a1);
+
+	FreeLibrary(hm);
+	return result;
+}
+
+
+// --------------------------------------------------------------------------------------------------
+// LAB7 E
+// arg1 = lpRootPathName = char* = "C:\\"
+// arg2 = A DWORD pointer for the return value of GetDiskFreeSpace which returns number of bytes per sector
+//Lab7e(x, x)	10001960	6			_Lab7e@8
+// --------------------------------------------------------------------------------------------------
+int lab7e(void)
+{
+	std::cout << "lab7d running..." << std::endl;
+
+	HMODULE hm = NULL;
+	int(__stdcall *dynamicFunction)(char *, UINT32  *) = NULL;  // DWORD is a 32bit integer
+	int result = 0;
+
+
+	if (NULL == (hm = LoadLibraryA("lab7.dll"))) { printf("Failed to load library! %d\n", GetLastError()); return -1; }
+
+	dynamicFunction = (int(__stdcall*)(char *, UINT32  *))GetProcAddress(hm, "_Lab7e@8");	// Name found in IDA exports
+	if (NULL == dynamicFunction) {
+		printf("Failed to find func! %d\n", GetLastError());
+		return -2;
+	}
+
+	char *a1 = "C:\\";
+	UINT32  a2;
+	result = dynamicFunction(a1, &a2);
+
+	std::cout << "Value of a2: " << a2 << std::endl;
+
+	FreeLibrary(hm);
+	return result;
+}
+
+// --------------------------------------------------------------------------------------------------
+// LAB7 F
+// Takes a filename as arg1 and extends the file length by arg2 and write random garbage to the file
+//
+// Note:
+//	call    ebx; SetFilePointer
+//	cmp     eax, 0FFFFFFFFh		; this is -1 , if SetFilePointer returns -1 we fail
+//	jnz     short loc_10001717
+//
+//Lab7f(x, x)	10001630	7			_Lab7f@8
+// --------------------------------------------------------------------------------------------------
+int lab7f(void)
+{
+	std::cout << "lab7d running..." << std::endl;
+
+	HMODULE hm = NULL;
+	int(__stdcall *dynamicFunction)(char *, int) = NULL;
+	int result = 0;
+
+
+	if (NULL == (hm = LoadLibraryA("lab7.dll"))) { printf("Failed to load library! %d\n", GetLastError()); return -1; }
+
+	dynamicFunction = (int(__stdcall*)(char *, int))GetProcAddress(hm, "_Lab7f@8");	// Name found in IDA exports
+	if (NULL == dynamicFunction) {
+		printf("Failed to find func! %d\n", GetLastError());
+		return -2;
+	}
+
+	char *a1 = "lab7f.txt";
+	int a2 = 10;
+	result = dynamicFunction(a1, a2);
+
+	FreeLibrary(hm);
+	return result;
+}
+
+
+
+int main(void)
+{
+		//Name			Address		Ordinal
+		//----			------ -	------ -
+		//Lab7(x, x)	100012A0	1			_Lab7@8
+		//Lab7a(x)		10001360	2			_Lab7a@4
+		//Lab7b(x, x)	10001470	3			_Lab7b@8
+		//Lab7c(x)		100017A0	4			_Lab7c@4
+		//Lab7d(x)		100017F0	5			_Lab7d@4
+		//Lab7e(x, x)	10001960	6			_Lab7e@8
+		//Lab7f(x, x)	10001630	7			_Lab7f@8
+		//DllEntryPoint 10001E3F[main entry]
+
+
+	//int ret = lab7();
+	//std::cout << ret << std::endl;
+
+	//int ret = lab7a();
+	//std::cout << ret << std::endl;
+
+	//int ret = lab7b();
+	//std::cout << ret << std::endl;
+
+	//int ret = lab7c();
+	//std::cout << ret << std::endl;
+
+	//int ret = lab7d();
+	//std::cout << ret << std::endl;
+
+	//int ret = lab7e();
+	//std::cout << ret << std::endl;
+
+	//int ret = lab7f();
+	//std::cout << ret << std::endl;
+
+	return 0;
+}
+
+
+
+########################################################################################################################
+#
+#
+#	LAB8
+#
+#
+#
+########################################################################################################################
+
+#include <iostream>
+#include <string>
+#include <Windows.h>
+
+// --------------------------------------------------------------------------------------------------
+// SEHLab
+// Divide by zero exception
+// 		//SEHLab(x, x, x)	10001250 1			_SEHLab@12
+// --------------------------------------------------------------------------------------------------
+int SEHLab(void)
+{
+	std::cout << "SEHLab running..." << std::endl;
+
+	HMODULE hm = NULL;
+	int(__stdcall *dynamicFunction)(int, int, int) = NULL;
+	int result = 0;
+
+
+	if (NULL == (hm = LoadLibraryA("lab8.dll"))) { printf("Failed to load library! %d\n", GetLastError()); return -1; }
+
+	dynamicFunction = (int(__stdcall*)(int, int, int))GetProcAddress(hm, "_SEHLab@12");	// Name found in IDA exports
+	if (NULL == dynamicFunction) {
+		printf("Failed to find func! %d\n", GetLastError());
+		return -2;
+	}
+
+	int a1 = 5;
+	int a2 = 0;
+	int a3 = 1;
+	result = dynamicFunction(a1, a2, a3);
+
+	FreeLibrary(hm);
+	return result;
+}
+
+// --------------------------------------------------------------------------------------------------
+// SEHLab_a
+// Int overload
+// 		//SEHLab_a(x)		10001310 2			_SEHLab_a@4
+// --------------------------------------------------------------------------------------------------
+int SEHLab_a(void)
+{
+	std::cout << "SEHLab_a running..." << std::endl;
+
+	HMODULE hm = NULL;
+	int(__stdcall *dynamicFunction)(int) = NULL;
+	int result = 0;
+
+
+	if (NULL == (hm = LoadLibraryA("lab8.dll"))) { printf("Failed to load library! %d\n", GetLastError()); return -1; }
+
+	dynamicFunction = (int(__stdcall*)(int))GetProcAddress(hm, "_SEHLab_a@4");	// Name found in IDA exports
+	if (NULL == dynamicFunction) {
+		printf("Failed to find func! %d\n", GetLastError());
+		return -2;
+	}
+
+	int a1 = 999999999;
+	dynamicFunction(0);
+
+ 	FreeLibrary(hm);
+	return 0;
+}
+
+
+
+// --------------------------------------------------------------------------------------------------
+// SEHLab_b
+// Writing to dest buff that is too small
+// 		//SEHLab_b(x, x)	10001410 3			_SEHLab_b@8
+// --------------------------------------------------------------------------------------------------
+int SEHLab_b(void)
+{
+	std::cout << "SEHLab_b running..." << std::endl;
+
+	HMODULE hm = NULL;
+	int(__stdcall *dynamicFunction)(char *, char *) = NULL;
+	int result = 0;
+
+
+	if (NULL == (hm = LoadLibraryA("lab8.dll"))) { printf("Failed to load library! %d\n", GetLastError()); return -1; }
+
+	dynamicFunction = (int(__stdcall*)(char *, char *))GetProcAddress(hm, "_SEHLab_b@8");	// Name found in IDA exports
+	if (NULL == dynamicFunction) {
+		printf("Failed to find func! %d\n", GetLastError());
+		return -2;
+	}
+
+	char *a = "abcdfgh";
+	char *b = "a";
+	result = dynamicFunction(a,b);
+
+	FreeLibrary(hm);
+	return result;
+}
+
+
+int main(void)
+{
+
+		//Name				Address  Ordinal
+		//----				------ - ------ -
+		//SEHLab(x, x, x)	10001250 1			_SEHLab@12
+		//SEHLab_a(x)		10001310 2			_SEHLab_a@4
+		//SEHLab_b(x, x)	10001410 3			_SEHLab_b@8
+		//DllEntryPoint 1000194F[main entry]
+
+
+	//int ret = SEHLab();
+	//std::cout << ret << std::endl;
+
+	//int ret = SEHLab_a();
+	//std::cout << ret << std::endl;
+
+	int ret = SEHLab_b();
+	std::cout << ret << std::endl;
+
+	return 0;
+}
+
+
+########################################################################################################################
+#
+#
+#	PEFILE - PRACTICE
+#
+#
+#
+########################################################################################################################
+
+C:\Users\DOT_13\Desktop\MQT\Block 5 - Reverse Engineering\Labs\PEFile - Practice\pefile_practice>python
+Python 2.7.11 (v2.7.11:6d1b6a68f775, Dec  5 2015, 20:40:30) [MSC v.1500 64 bit (AMD64)] on win32
+Type "help", "copyright", "credits" or "license" for more information.
+>>>
+>>> import pefile
+>>> pe = pefile.PE("BadPe_x64.dll")
+>>> dir(pe)
+['DIRECTORY_ENTRY_BASERELOC', 'DIRECTORY_ENTRY_DEBUG', 'DIRECTORY_ENTRY_EXPORT', 'DIRECTORY_ENTRY_IMPORT', 'DIRECTORY_ENTRY_LOAD_CONFIG', 'DIRECTORY_ENTRY_RESOURCE', 'DOS_HEADER', 'FILE_HEADER', 'NT_HEADERS', 'OPTIONAL_HEADER', 'PE_TYPE', 'RICH_HEADER', '_PE__from_file', '_PE__warnings', '__IMAGE_BASE_RELOCATION_ENTRY_format__', '__IMAGE_BASE_RELOCATION_format__', '__IMAGE_BOUND_FORWARDER_REF_format__', '__IMAGE_BOUND_IMPORT_DESCRIPTOR_format__', '__IMAGE_DATA_DIRECTORY_format__', '__IMAGE_DEBUG_DIRECTORY_format__', '__IMAGE_DELAY_IMPORT_DESCRIPTOR_format__', '__IMAGE_DOS_HEADER_format__', '__IMAGE_EXPORT_DIRECTORY_format__', '__IMAGE_FILE_HEADER_format__', '__IMAGE_IMPORT_DESCRIPTOR_format__', '__IMAGE_LOAD_CONFIG_DIRECTORY64_format__', '__IMAGE_LOAD_CONFIG_DIRECTORY_format__', '__IMAGE_NT_HEADERS_format__', '__IMAGE_OPTIONAL_HEADER64_format__', '__IMAGE_OPTIONAL_HEADER_format__', '__IMAGE_RESOURCE_DATA_ENTRY_format__', '__IMAGE_RESOURCE_DIRECTORY_ENTRY_format__', '__IMAGE_RESOURCE_DIRECTORY_format__', '__IMAGE_SECTION_HEADER_format__', '__IMAGE_THUNK_DATA64_format__', '__IMAGE_THUNK_DATA_format__', '__IMAGE_TLS_DIRECTORY64_format__', '__IMAGE_TLS_DIRECTORY_format__', '__StringFileInfo_format__', '__StringTable_format__', '__String_format__', '__VS_FIXEDFILEINFO_format__', '__VS_VERSIONINFO_format__', '__Var_format__', '__class__', '__data__', '__delattr__', '__dict__', '__doc__', '__format__', '__getattribute__', '__hash__', '__init__', '__long__', '__module__', '__native__', '__new__', '__nonzero__', '__parse__', '__reduce__', '__reduce_ex__', '__repr__', '__setattr__', '__sizeof__', '__str__', '__structures__', '__subclasshook__', '__unicode__', '__unpack_data__', '__weakref__', 'adjust_FileAlignment', 'adjust_SectionAlignment', 'close', 'dump_dict', 'dump_info', 'dword_align', 'fileno', 'full_load', 'generate_checksum', 'get_data', 'get_data_from_dword', 'get_data_from_qword', 'get_data_from_word', 'get_dword_at_rva', 'get_dword_from_data', 'get_dword_from_offset', 'get_imphash', 'get_import_table', 'get_memory_mapped_image', 'get_offset_from_rva', 'get_overlay', 'get_overlay_data_start_offset', 'get_physical_by_rva', 'get_qword_at_rva', 'get_qword_from_data', 'get_qword_from_offset', 'get_resources_strings', 'get_rva_from_offset', 'get_section_by_offset', 'get_section_by_rva', 'get_string_at_rva', 'get_string_from_data', 'get_string_u_at_rva', 'get_warnings', 'get_word_at_rva', 'get_word_from_data', 'get_word_from_offset', 'header', 'is_dll', 'is_driver', 'is_exe', 'merge_modified_section_data', 'next', 'parse_data_directories', 'parse_debug_directory', 'parse_delay_import_directory', 'parse_directory_bound_imports', 'parse_directory_load_config', 'parse_directory_tls', 'parse_export_directory', 'parse_import_directory', 'parse_imports', 'parse_relocations', 'parse_relocations_directory', 'parse_resource_data_entry', 'parse_resource_entry', 'parse_resources_directory', 'parse_rich_header', 'parse_sections', 'parse_version_information', 'print_info', 'relocate_image', 'sections', 'set_bytes_at_offset', 'set_bytes_at_rva', 'set_dword_at_offset', 'set_dword_at_rva', 'set_qword_at_offset', 'set_qword_at_rva', 'set_word_at_offset', 'set_word_at_rva', 'show_warnings', 'trim', 'verify_checksum', 'write']
+>>> pe.DIRECTORY_ENTRY_IMPORT
+[<pefile.ImportDescData object at 0x0000000002D9C048>, <pefile.ImportDescData object at 0x0000000002DA5630>, <pefile.ImportDescData object at 0x0000000002DF5048>, <pefile.ImportDescData object at 0x0000000002DF5518>]
+>>> pe.DIRECTORY_ENTRY_IMPORT[0]
+<pefile.ImportDescData object at 0x0000000002D9C048>
+>>> dir(pe.DIRECTORY_ENTRY_IMPORT[0])
+['__class__', '__delattr__', '__dict__', '__doc__', '__format__', '__getattribute__', '__hash__', '__init__', '__long__', '__module__', '__native__', '__new__', '__nonzero__', '__reduce__', '__reduce_ex__', '__repr__', '__setattr__', '__sizeof__', '__str__', '__subclasshook__', '__unicode__', '__weakref__', 'dll', 'imports', 'next', 'struct']
+>>> pe.DIRECTORY_ENTRY_IMPORT[0].dll
+'AAAAAAAAAAAA'
+>>> pe.DIRECTORY_ENTRY_IMPORT[0].imports
+[<pefile.ImportData object at 0x0000000002D9C9E8>, <pefile.ImportData object at 0x0000000002D9CA58>, <pefile.ImportData object at 0x0000000002D9CB00>, <pefile.ImportData object at 0x0000000002D9CB38>, <pefile.ImportData object at 0x0000000002D9CBA8>, <pefile.ImportData object at 0x0000000002D9CC18>, <pefile.ImportData object at 0x0000000002D9CC88>, <pefile.ImportData object at 0x0000000002D9CCF8>, <pefile.ImportData object at 0x0000000002D9CD68>, <pefile.ImportData object at 0x0000000002D9CDD8>, <pefile.ImportData object at 0x0000000002D9CE10>, <pefile.ImportData object at 0x0000000002D9CE80>, <pefile.ImportData object at 0x0000000002D9CEF0>, <pefile.ImportData object at 0x0000000002D9CF28>, <pefile.ImportData object at 0x0000000002D9CF60>, <pefile.ImportData object at 0x0000000002D9CFD0>, <pefile.ImportData object at 0x0000000002DA5080>, <pefile.ImportData object at 0x0000000002DA50F0>]
+>>> pe.DIRECTORY_ENTRY_IMPORT[0].struct
+<Structure: [IMAGE_IMPORT_DESCRIPTOR] 0x1D98 0x0 OriginalFirstThunk: 0x3800 0x1D98 0x0 Characteristics: 0x3800 0x1D9C 0x4 TimeDateStamp: 0x0 [Thu Jan 01 00:00:00 1970 UTC] 0x1DA0 0x8 ForwarderChain: 0x0 0x1DA4 0xC Name: 0x397C 0x1DA8 0x10 FirstThunk: 0x3000>
+>>> pe.DIRECTORY_ENTRY_IMPORT[0].struct.Name
+14716
+>>> pe.get_string_at_rva(14716)
+'AAAAAAAAAAAA'
+>>> len(pe.get_string_at_rva(14716))
+12
+>>> pe.set_bytes_at_rva(14716, "Kernel32.dll")
+True
+>>> pe.get_string_at_rva(14716)
+'Kernel32.dll'
+>>> with open('fixed.dll', 'wb') as f:
+...     f.write(pe.write())
+...
+>>> quit()
+
+C:\Users\DOT_13\Desktop\MQT\Block 5 - Reverse Engineering\Labs\PEFile - Practice\pefile_practice>ls
+BadPe_x64.dll  BadPe_x86.dll  GoodPe_x86.dll  Instructions.txt  fixed.dll
+
+
+########################################################################################################################
+#
+#
+#	PRACTICE LAB
+#
+#
+#
+########################################################################################################################
+
+#include <iostream>
+#include <string>
+#include <Windows.h>
+
+int practicelab(void)
+{
+	// arg2 int
+	// arg1 buffer
+
+	// Our module
+	HMODULE hm = NULL;
+	// Our dynamic function pointer
+	int(__stdcall *dynamicFunction)(char *, int *) = NULL;
+	int result = 0;
+
+	// try to load a dll,return if we can't find it!
+	if (NULL == (hm = LoadLibraryA("PracticeLab.dll"))) {				// DLL placed in Debug folder where the .exe is located
+		printf("Failed to load library! %d\n", GetLastError());
+		return -1;
+	}
+	// Try to find an exported function.If it were exported by
+	// ordinal, the 2nd param would change to: (char*)n, where
+	// n is the ordinal number. This is a bit strange,but is
+	// the way the API works.
+	dynamicFunction = (int(__stdcall*)(char *, int *))GetProcAddress(hm, "_PracticeLab@8");	// Name found in IDA exports
+	if (NULL == dynamicFunction) {
+		printf("Failed to find func! %d\n", GetLastError());
+		return -2;
+	}
+
+	char *a1 = "Calculator.exe";
+	int a2;
+	result = dynamicFunction(a1, &a2);
+
+	// Now we FreeLibrary (since we are done with it now)
+	FreeLibrary(hm);
+
+	return result;
+}
+
+
+
+void main(void)
+{
+	int ret = practicelab();
+	std::cout << ret << std::endl;
+
+	return;
+}
+
+
+
