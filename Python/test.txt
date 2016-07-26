@@ -1,0 +1,513 @@
+import ctypes
+import subprocess
+import os
+import re
+import string
+import time
+import sys
+import math
+import struct
+import hashlib
+
+#import threading, thread
+#
+#####################################
+# Python Test
+# "Do or do not, there is no try"
+# 
+# The test is open book. Do not
+# stay on a problem for too long.
+# Move on and return to it later.
+######################################
+
+# Python Padawan Level
+######################################
+# Problem 1:
+# What is wrong with the following
+# code section if any?
+#
+# str = "Hello World"
+# print str
+#
+# <your answer>
+# str is a reserved word
+######################################
+
+
+######################################
+# Problem 2:
+# What are the four type of Numbers
+# supported in python 2.7
+#
+# <your answer>
+# int float long complex
+######################################
+
+
+######################################
+# Problem 3:
+# How many sequence object types are
+# there? List them.
+#
+# <your answer>
+# There are six sequence types: strings, Unicode strings, lists, tuples, buffers, and xrange objects. 
+######################################
+
+
+######################################
+# Problem 4:
+# my_string = "Hello World"
+#
+# How would you print the string in
+# reverse?
+######################################
+print "\n\nProblem 4 --------------------"
+my_string = "Hello World"
+print my_string[::-1]
+
+
+
+######################################
+# Problem 5:
+# my_string = "Hello World"
+#
+# What is the value of my_string
+# after running the command:
+# my_string.replace('l', 'L')
+######################################
+# <your answer>
+# Value : "Hello World"
+
+######################################
+# Problem 6:
+# my_string = "Hello World"
+#
+# Write a function that returns True
+# or False if my_string contains a
+# letter specified from the console.
+######################################
+print "\n\nProblem 6 --------------------"
+def containsletter6(string):
+    x = raw_input("Enter letter: ")
+    if x not in string:
+        return False
+    else: 
+        return True
+my_string = "Hello World"
+#containsletter6(my_string)
+
+######################################
+# Problem 7:
+# my_string = "Hello World"
+#
+# Write a function that returns True
+# or False if my_string contains a
+# letter specified from the console.
+######################################
+print "\n\nProblem 7 --------------------"
+def containsletter7(string):
+    x = raw_input("Enter letter: ")
+    if x not in string: return False
+    else: return True
+
+my_string = "Hello World"
+#containsletter7(my_string)
+
+######################################
+# Problem 8:
+# my_list = [1, 3, 2, 4, 7, 6, 9, 8, 0]
+#
+# Write a function that sorts the list
+######################################
+my_list = [1, 3, 2, 4, 7, 6, 9, 8, 0]
+def sortlist(l): l.sort()
+
+
+######################################
+# Problem 9:
+# Using the sorted my_list from Prob8
+#
+# Write a function that prints and 
+# returns the list as a single string.
+#
+# result should be '0123456789'
+######################################
+def list2string(l):
+    sortlist(l)
+    return ''.join(str(e) for e in l)
+
+
+######################################
+# Problem 10:
+# Using the result from prob9
+#
+# Write a function that converts the
+# single string back to a list of ints
+#
+# result = [1, 3, 2, 4, 7, 6, 9, 8, 0]
+######################################
+def string2list(s): return map(int, s)
+
+
+######################################
+# Problem 11:
+# Which of the following is correct about tuples in python?
+# A - A tuple is another sequence data type that is similar to the list.
+# B - A tuple consists of a number of values separated by commas.
+# C - Unlike lists, however, tuples are enclosed within parentheses.
+# D - All of the above.
+#
+# <your answer>
+# D
+######################################
+
+
+######################################
+# Problem 12:
+# Create a dictionary that contains
+# all the letters in the alphabet
+# lower and uppercase
+#
+# resDict = {'a':'a',...,'Z':'Z'}
+######################################
+d = dict( (key, key) for key in string.ascii_letters)
+
+
+######################################
+# Problem 13:
+# Write a function that removes the 
+# duplicates from the generated list. (string)
+# 
+# the order of the list does not matter
+######################################
+import string, random
+my_string = ''.join(random.choice(string.ascii_letters) for x in xrange(50))
+def removeDups(s): return "".join(set(s))
+
+
+
+# Python Knight level
+######################################
+# Problem 14:
+# Implement a Ceasar Cipher that
+# takes a key and text from a user.
+#
+# If key is 3, then add 3 to every letter.
+# 'a' becomes 'd'
+#
+# Ensure you stay within asii letter values
+# if val > ord('Z'), then val -= 26 to wrap around
+# if val < ord('A'), then val += 26 to wrap around
+######################################
+def caesar():
+    key = raw_input("Enter key: ")
+    plaintext = raw_input("Enter text: ")
+    shift = int(key)
+    shift %= 26 
+    alphabet_lower = string.ascii_lowercase
+    alphabet_upper = string.ascii_uppercase
+    shifted_alphabet_lower = alphabet_lower[shift:] + alphabet_lower[:shift]
+    shifted_alphabet_upper = alphabet_upper[shift:] + alphabet_upper[:shift]
+    alphabet = alphabet_lower + alphabet_upper
+    shifted_alphabet = shifted_alphabet_lower + shifted_alphabet_upper
+    table = string.maketrans(alphabet, shifted_alphabet)
+    return plaintext.translate(table)
+
+
+######################################
+# Problem 15:
+# Implement a Ceasar Cipher decoder
+# with the key = 3
+#
+# Decode the given text file 'sw.txt'
+# by 'xor'ing the file by '\x7c' and
+# then decoding with the ceasar cipher
+# key of 3
+######################################
+def decodecaesar():
+    key = 3
+    plainlist = []
+    with open("sw.txt", "rb") as f:
+        byte = f.read(1)
+        while byte:
+            plainlist.append(chr(ord(byte) ^ 0x7c))
+            byte = f.read(1)
+    f.close()
+    plaintext = ''.join(plainlist)
+    shift = 26 - key
+    shift %= 26
+    alphabet_lower = string.ascii_lowercase
+    alphabet_upper = string.ascii_uppercase
+    shifted_alphabet_lower = alphabet_lower[shift:] + alphabet_lower[:shift]
+    shifted_alphabet_upper = alphabet_upper[shift:] + alphabet_upper[:shift]
+    alphabet = alphabet_lower + alphabet_upper
+    shifted_alphabet = shifted_alphabet_lower + shifted_alphabet_upper
+    table = string.maketrans(alphabet, shifted_alphabet)
+    return plaintext.translate(table)
+
+
+# Python Master level
+######################################
+# Problem 16:
+# Create function that accepts a number
+# and returns a dictionary containing 
+# the keys: 'square', 'cubic', 'quadratic',
+# with their associated lambda expressions.
+######################################
+def scq(n):
+    d = {'square': lambda x: x**2, 'cubic': lambda x: x**3, 'quadratic': lambda x: x**4}
+    return d
+
+
+######################################
+# Problem 17:
+# Create a lambda expression that takes a multi-line string
+# and returns a string whose words are separated by only one space.
+# Example: "hello \n\n world \t     again" returns "hello world again"
+######################################
+s = "hello \n\n world \t     again"
+multiline = ' '.join(filter(lambda w: w, s.split()))
+print multiline
+
+######################################
+# Problem 18:
+# Create function that accepts a number
+    # and returns a dictionary containing 
+    # the keys: 'square', 'cubic', 'quadratic',
+    # with their values being a list up to a range of 100.
+    #
+    # use a list comprehension and generator
+######################################
+#{square':[0*2,2*2, 3*2, 4*2...99^2]}
+def genx(n):
+    i = 0
+    while i < n:
+        yield i
+        i += 1
+
+def listgen():
+    s = [x*x for x in genx(100)]
+    c = [x*x*x for x in genx(100)]
+    q = [x*x*x*x for x in genx(100)]
+    d = {'square': s}
+    d = {'cubic': s}
+    d = {'quadratic': s}
+    return d
+
+
+# Python Master Level
+######################################
+# Problem 19:
+# Create a calculator class that contains
+# the four basic math operations (/ * - +)
+#
+# Ensure you handle exceptions for division by 0
+######################################
+class calculator(object):
+    """docstring for calculator"""
+    def __init__(self, num1, num2):
+        self.num1 = num1
+        self.num2 = num2
+
+    def __str__(self): return 'Calculator does not compute'
+
+    def add(self): return self.num1 + self.num2
+    def mul(self): return self.num1 * self.num2
+    def sub(self): return self.num1 - self.num2
+    def div(self):
+        try:
+            return self.num1 / self.num2
+        except ZeroDivisionError as err:
+            print "Only Chuck Norris can divide by zero, you are not him"
+            return 0
+
+#print c.add()
+#print c.mul()
+#print c.sub()
+#print c.div()
+#x = calculator(5,0)
+#print x.div()
+
+
+
+######################################
+# Problem 20:
+# Create a adv_calculator child class of calculator that contains
+# modulus and a logrithm
+#
+# import math
+# Ensure you handle exceptions a case for 0
+######################################
+import math
+class adv_calculator(object):
+    """docstring for calculator"""
+    def __init__(self, num1, num2):
+        self.num1 = num1
+        self.num2 = num2
+
+    def __str__(self): return 'Calculator does not compute'
+
+    def add(self): return self.num1 + self.num2
+    def mul(self): return self.num1 * self.num2
+    def sub(self): return self.num1 - self.num2
+    def div(self):
+        try:
+            return self.num1 / self.num2
+        except ZeroDivisionError as err:
+            print "Only Chuck Norris can divide by zero, you are not him: " + str(err)
+            return 0
+
+    def mod(self):
+        try:
+            return self.num1 % self.num2
+        except ZeroDivisionError as err:
+            print "Chuck can do this too: " + str(err)
+            return 0
+
+    def log(self):
+        try:
+            return math.log(self.num1,self.num2)
+        except ValueError as err:
+            print "Chuck Norris was born in a log cabin he built with his own bare hands: " + str(err)
+            return 0
+
+
+
+######################################
+# Problem 21:
+# Explain the importance of thread synchronization
+#
+# <your answer>
+# For the consistency of data Synchronization is used. 
+# Without synchronization it is possible for one thread 
+# to modify a shared object while another thread is in 
+# the process of using or updating that object's value. 
+# This often leads to an error.
+######################################
+
+
+######################################
+# Question 22:
+# A website requires the users to input username and password to 
+# register. Write a program to check the validity of password input 
+# by users.
+#
+# Following are the criteria for checking the password:
+# 1. At least 1 letter between [a-z]
+# 2. At least 1 number between [0-9]
+# 1. At least 1 letter between [A-Z]
+# 3. At least 1 character from [$#@]
+# 4. Minimum length of transaction password: 6
+# 5. Maximum length of transaction password: 12
+# Your program should accept a sequence of comma separated passwords 
+# and will check them according to the above criteria. Passwords 
+# that match the criteria are to be printed, each separated by a comma.
+# Example:
+# If the following passwords are given as input to the program:
+# ABd1234@1,a F1#,2w3E*,2We3345
+# Then, the output of the program should be:
+# ABd1234@1
+#
+# Hint: regex
+######################################
+import re
+def passcheck(s):
+    passlist = s.split(',')
+    for password in passlist:
+        if len(password) < 5 or len(password) > 12: continue
+        lower = number = upper = special = 0
+        if re.search(r'[A-Z]', password):
+            lower += 1
+        if re.search(r'[a-z]', password):
+            upper += 1
+        if re.search(r'[0-9]', password):
+            number += 1
+        if re.search(r"[$@#]", password):
+            special += 1
+        if lower and number and upper and special:
+            print password
+
+s = "ABd1234@1,aF1#,2w3E*,2We3345"
+passcheck(s)
+
+
+
+######################################
+# Problem 23:
+# A "PythonTest.dll" has been provided
+# The dll exports two functions
+# "calcFunc" and "passphrase"
+#
+# calcFunc takes two integers and returns an int
+# what calculation is it performing?
+# ANSWER: And add
+#
+# passphrase takes a key of your choice and returns a char*
+# xor the returned value with the key you gave to see the msg.
+######################################
+c_lib = ctypes.WinDLL('PythonTest')
+
+
+k = c_lib.calcFunc(22,11)
+passphrase = c_lib.passphrase
+passphrase.restype = ctypes.c_char_p
+passphrase.argtypes = [ctypes.c_int]
+cstar = passphrase(k)
+s = str(cstar)
+print ''.join([chr(ord(c) ^ k) for c in s])        
+
+
+# Python Grand Master level - Bonus
+######################################
+
+# Using the os module, create a program that will do a recursive 
+# directory search and create a dictionary of the results, using 
+# the dir path as the key and files in a list
+#ddict = {}
+#directory = "C:\Users\DOT_13\Desktop\MQT\Block 4 - Python\code"
+#for root, dirs, files in os.walk(directory):
+#    ddict[root] = files
+
+# Use the subprocess module to create a program to list the 
+# processes running and pipe to a file, start and kill an 
+# instance of calc.exe or any other program.
+#cmd = "calc"
+#subprocess.call(cmd, shell=True) 
+
+#status = subprocess.call("tasklist" + " /fi \"PID gt 0\" /fo csv /nh > p.txt", shell=True) # status should be zero for success
+
+#data = []
+#with open('p.txt', 'rb') as f:
+#    data = f.readlines()
+#f.closed
+
+#pdict = {}
+#for x in data:
+#    pdict[x.split("\"")[3]] = x.split("\"")[1]
+
+#os.system("taskkill /im Calculator.exe /f")
+
+# Use structs to pack and unpack a name, age, location.
+#name = "Jason"
+#age = 100
+#location = "Texas"
+#data = struct.pack('5si5s', name, age, location)
+#print data
+#data = struct.unpack('5si5s', data)
+#print data
+
+
+# Using hashlib, write a program that will hash all the files
+# in a given directory and store it in a dictionary ex {filename: hash}
+#ddict = {}
+#directory = "C:\Users\DOT_13\Desktop\MQT\Block 4 - Python\code"
+#for root, dirs, files in os.walk(directory):
+#    m = hashlib.md5()
+#    for file in files:
+#        with open(file, "rb") as f:
+#            somedata = f.read()
+#            m.update(somedata)
+#        f.close()
+#        ddict[root] = m.digest()
+#print ddict
+######################################
