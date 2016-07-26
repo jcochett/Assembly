@@ -1,2 +1,0 @@
-# mud
-Mud for school
