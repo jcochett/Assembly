@@ -1,0 +1,2210 @@
+
+---------------------------------------------
+LAB 1	lab1
+---------------------------------------------
+
+`;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+; For this lab, you will need ; to use LEA to calculate the ; next address in a list of 8 byte
+; elements, and then copy the value ; stored at that address into ; RAX.
+; There is a a pointer to the ; beginning of the list stored ; in RCX.
+;
+;  BEGIN student code
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+lea rax, [rcx + 8]
+mov rax, [rax]
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;  END student code
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+; For this lab, you will need to ; use XCHG to swap two values ; stored in addresses in memory.
+; The first value is a pointer to ; some data, contained by RCX, and ; the second is a pointer stored in
+; RDX.  ; HINT: Two XCHGs may be required.
+;
+;  BEGIN student code
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+xchg rax, [rcx]
+xchg [rdx], rax
+xchg rax, [rcx]
+
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;  END student code
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+
+
+---------------------------------------------
+LAB2	lab2
+---------------------------------------------
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;  For this task, you must move ;  the first byte of RCX into ;  RAX, using zero extend.
+;
+;  BEGIN student code
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+movzx rax, cl
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;  END student code
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;  For this task, you must swap ;  the contents of the first two ;  bytes of RAX (ah/al).
+;
+;  BEGIN student code
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+mov cl, al
+mov al, ah
+mov ah, cl
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;  END student code
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+
+
+---------------------------------------------
+LAB 3	lab3
+---------------------------------------------
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;
+;  For this lab, you will ;  need to multiply rax by ;  10.
+;
+;  BEGIN student code
+;;;;;;;;;;;;;;;;;;;;;;;;;;
+mov rax, 10		
+mov rcx, 10
+mul rcx			; mul rcx * rax
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;
+;  END student code
+;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;
+;  For this lab, you will ;  need to divide by 2, ;  and return the dividend.  ;  hint: make sure you clear
+;  the high bits!
+;
+;  BEGIN student code
+;;;;;;;;;;;;;;;;;;;;;;;;;;
+mov rax, 10
+mov rdx, 0
+mov rcx, 2
+div rcx			; rax/rcx
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;
+;  END student code
+;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;
+;  For this lab, you will ;  be required to divide ;  by 2, and move the ;  remainder into rax.
+;  hint: make sure you ;  clear the high bits!
+;
+;  BEGIN student code
+;;;;;;;;;;;;;;;;;;;;;;;;;;
+mov rax, 7
+mov rdx, 0
+mov rcx, 2
+div rcx
+mov rax, rdx
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;
+;  END student code
+;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+
+
+---------------------------------------------
+LAB 4	lab4
+---------------------------------------------
+
+    push rbp
+    mov rbp, rsp
+    mov rcx, 0x10
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;  For this task, you must allocate ;  8 bytes of space on the stack, and ;  store the value of rcx there.
+;
+;  BEGIN student code
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;sub rsp, 8
+;mov [rsp], rcx
+push rcx
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;  END student code
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+    pop rax
+    pop rbp
+    ret
+
+----------------------------------------
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;  For this task, you must allocate ;  manage your registers by saving them ;  to the stack as needed. Divide the
+;  number stored where rcx points by 10, ;  and place the value back at that address.  ;  Make sure all the register values are the
+;  same at the end of the call!
+;
+;  BEGIN student code
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+push rdx		; Push rdx on the stack, needed for division
+mov rdx, 0		; Clears the high bits for division
+push rax		; Save rax, needed for division
+push rcx		; Save rcx, needed for division
+mov rax, [rcx]		; Move the memory contents of rcx into rax
+mov rcx, 10		; Set rcx to 10 to divide against rax
+div rcx			; Dive rax/rcx and store results in rax
+pop rcx			; Restore rcx (pushed third), Memory address back into rcx
+mov [rcx], rax		; Store the division result into rcx memory address
+pop rax			; Restore rax (pushed second)
+pop rdx			; Restore rdx (pushed first)
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;  END student code
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+
+---------------------------------------------
+LAB 5	lab5
+---------------------------------------------
+
+    push rbp
+    mov rbp, rsp
+    mov rax, 0xfeedbeef
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;  Using the and instruction, ;  check to see if the 8th bit ;  is set in the value stored
+;  in rax. Set rax equal to 1 ;  if the bit is set, and 0 if ;  the bit is not set. Hint:
+;  setting a register equal to ;  1 and left shifting may help.
+;
+;  BEGIN student code
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+mov rbx, 1
+shl rbx, 7
+and rax, rbx
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;  END student code
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+    pop rbp
+    ret
+
+----------------------------------------
+
+    mov rax, 0xdeadbeef
+    mov rdx, 0xc0ffee
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;  Check to see what bits are ;  set in both rdx and rax. Set ;  rax equal to the result.
+;
+;  BEGIN student code
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+or rax, rdx
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;  END student code
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+    pop rbp
+    ret
+
+----------------------------------------
+
+    mov rax, 0x08
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;  Using only bit shifts, ;  multiply the value stored in ;  rax by 8.
+;
+;  BEGIN student code
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+shl rax, 3
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;  END student code
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+----------------------------------------
+
+    mov rax, 32
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;  Using only bit shift ;  instructions, divide the ;  value in rax by 16.
+;
+;  BEGIN student code
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+shr rax, 4
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;  END student code
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+----------------------------------------
+
+    mov rax, qword [rax]
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;  The string Success! has been ;  been stored in rax, but is ;  slightly mangled ("ess!Succ").
+;  Set it to ;  the correct order via byte ;  rotations (the result will ;  print out in console).
+;
+;  BEGIN student code
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+rol rax, 32
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;  END student code
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;  An 8-byte message has been ;  XOR-encoded with the key 0xCC, ;  and stored in RAX. Using all
+;  of the knowledge you've gained ;  so far, XOR each byte of RAX ;  with 0xCC. The resulting message
+;  will print out in console.
+;
+;  BEGIN student code
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+xor rax, rdx
+rol rax, 8
+xor rax, rdx
+rol rax, 8
+xor rax, rdx
+rol rax, 8
+xor rax, rdx
+rol rax, 8
+xor rax, rdx
+rol rax, 8
+xor rax, rdx
+rol rax, 8
+xor rax, rdx
+rol rax, 8
+xor rax, rdx
+rol rax, 8
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;  END student code
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+
+
+---------------------------------------------
+LAB 6	lab6
+---------------------------------------------
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+; Set the carry flag.
+;
+;  BEGIN student code
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+pushf			; pushes only 16
+pop ax 			; pops value into 16 bit regiter of rax
+or ax, 1		; Sets carry flag at offset 0
+push ax			; pushes ax 16bits onto the stack
+popf			; pops 16bits off the stack into 'flags' register
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;  END student code
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;  Set the overflow flag.
+;
+;  BEGIN student code
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+pushf
+pop ax
+or ax, 2048
+push ax
+popf
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;  END student code
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;  Set both the carry and overflow ;  flags.
+;
+;  BEGIN student code
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+pushfq		; pushes quad word or 64 bits on to the stack from the rflags register
+pop rax		; pop 64 bits into the 64 bit register
+or rax, 2049	; Set flags 2048 (Overflow Flag) and 1 (Carry Flag)
+push rax	; push it back onto stack
+popfq		; pop it off the stack into the register
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;  END student code
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+
+
+---------------------------------------------
+LAB 7	lab7
+---------------------------------------------
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;  Two values have been provided, ;  with the first stored in RDI, ;  and the second in RSI. If the 
+;  first is greater than the second, ;  set RAX equal to 1, if the second ;  is greater than the first, set
+;  RAX equal to -1. If they are ;  both equal, set RAX to 0.
+;
+;  BEGIN student code
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+cmp rdi, rsi
+jb .setraxneg1
+jz .setrax0
+ja .setrax1
+
+.setraxneg1:
+mov rax, -1
+jmp .endthis
+
+.setrax1:
+mov rax, 1
+jmp .endthis
+
+.setrax0:
+mov rax, 0
+
+.endthis:
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;  END student code
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;  You have been provided with ;  a pointer to the start of an ;  array of numbers in RDI, and
+;  the number of elements in the ;  array in RSI. Loop through the ;  array, adding all the numbers
+;  together, and store the result ;  in RAX.
+;
+;  BEGIN student code
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+	xor rax, rax
+.continue:
+	add eax, [rdi]		; Int array is 32 bit integer (64 reg like rax, stores two integers)
+	lea rdi, [rdi + 4]	; Move 4 bytes or 32 bits to the next integer
+	dec rsi			; decrement the loop
+	test rsi, rsi		; test if rsi is zero 
+        jnz .continue
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;  END student code
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;  Find the length of the ;  provided, NULL-terminated ;  string (a pointer to the 
+;  beginning of which is ;  currently stored in RDI), ;  and store the result in RAX.
+;
+;  BEGIN student code
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+xor rax, rax
+push rbx
+xor rbx, rbx
+
+.mystart:              
+  mov bl, [rdi]		; Read the next byte from memory
+  cmp bl, 0   		; Compare the byte to null (the terminator)
+  je .myend             ; If the byte is null, jump out of the loop
+
+  inc rax
+  lea rdi, [rdi + 1]
+  jmp .mystart          ; Loop
+.myend:
+
+pop rbx
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;  END student code
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+
+
+---------------------------------------------
+LAB 8	lab8
+---------------------------------------------
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;  Two values have been provided, ;  a value (consisting of a single ;  byte), which is stored in RSI,
+;  a buffer to initialize, a ;  pointer to which is in RDI, ;  and a number of bytes to set,
+;  which is stored in RDX.  ;  Implement a function that will ;  set the buffer pointed to by RDI
+;  to the value stored in RSI.
+;
+;  BEGIN student code
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+mov rcx, rdx
+mov rax, rsi
+rep stosb
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;  END student code
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+    
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;  You have been provided with ;  pointers to two buffers, one ;  being the "source" (in RSI),
+;  and the other, in RDI, being ;  the destination. Copy the values ;  from source to destination.
+;  The size of both buffers is ;  stored in RCX.
+; 
+;  BEGIN student code
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+mov rcx, rdx
+rep movsb
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;  END student code
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+    
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;  Find the length of the ;  provided, NULL-terminated ;  string (a pointer to the 
+;  beginning of which is ;  currently stored in RDI), ;  and store the result in RAX,
+;  using only string instructions.
+;
+;  BEGIN student code
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+xor rax, rax
+push rbx
+xor rbx, rbx
+
+.loop:
+	scasb
+	jnz .incrementer
+	jmp .endthis
+
+.incrementer:
+	inc rbx
+jmp .loop
+
+.endthis:
+
+mov rax, rbx
+pop rbx
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;  END student code
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+    
+
+
+---------------------------------------------
+LAB 9	lab9
+---------------------------------------------
+
+
+extern printf
+mystr  db "Success!", 0xa, 0x00
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;  The function printf has been ;  externed in (above). Call it, ;  passing mystr (also defined
+;  above), as its only argument.
+;
+;  BEGIN student code
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+push rdi
+mov rdi, mystr
+call printf
+pop rdi
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;  END student code
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+----------------------------------------
+
+extern strlen
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;  Your function will be called ;  with two arguments: a function ;  pointer (the first parameter),
+;  and a string (the second). The ;  function pointer takes two ;  arguments: a string, and a length.
+;  You will need to call strlen ;  (above), passing in the string, ;  and pass the results to the
+;  function pointer (along with the ;  string). Return the string you get ;  back from the function. 
+; 
+;  BEGIN student code
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+; rcx and rdi have information in for us
+push rdi
+mov rdi, rsi
+call strlen
+mov rsi, rax
+pop rcx
+call rcx
+; rax for return value
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;  END student code
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;  Calculate the Nth fibonacci ;  number (where N is the value ;  passed to your method as the
+;  only parameter).
+;
+;  BEGIN student code
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+push rdi
+push r12	; i
+push r13	; j
+push r14	; t
+push r15
+
+mov r12, 0
+mov r13, 1
+xor r14, 14
+
+dec rdi	
+
+.fib:
+	xor r15, r15	; zero out for t
+	add r15, r12	; add i + 0 and store in 15
+	add r15, r13	; add i + j and store in 15
+	mov r14, r15	; t = i + j
+
+	mov r12, r13	; i = j
+	mov r13, r14	; j = t
+
+	dec rdi	
+	test rdi, rdi
+	jnz .fib
+
+mov rax, r14
+
+pop r15
+pop r14
+pop r13
+pop r12
+pop rdi
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;  END student code
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+
+
+---------------------------------------------
+LAB 10	lab10
+---------------------------------------------
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;    Using the rdtsc instruction,
+;  1.) Obtain the current timestamp
+;  2.) Combine the low 32 bits (from RAX)
+;     and the high 32 bits (RDX), and ;     return them.
+;
+;  BEGIN student code
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+rdtsc			; Gets current timestamp
+shl rdx, 32		; Move rdx over to the high side of the quad word
+or rax, rdx		; We are combining rax (low bits) and rdx (high bits)
+;add rax, rdx		; alternate way
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;  END student code
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;  Using CPUID, get the vendor ;  string, and copy each chunk ;  returned into the buffer
+;  passed to your function.  ;  The buffer should be the ;  first (and only) argument.
+; 
+;  BEGIN student code
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+		; RDI is the first arg passed into this function and is also the location stos uses to store the string
+mov eax, 0	; Set eax to zero to have cpuid to get Vender ID String
+cpuid		; Get the Vender ID String - stored in EBX/EDX/ECX
+mov eax, ebx	; Move first part of the string into eax
+stosd		; Store value pointed to at eax into rdi
+mov eax, edx	 
+stosd
+mov eax, ecx
+stosd
+
+; Equivalent
+; mov [rdi], ebx
+; mov [rdi + 4], edx
+; mov [rdi + 8], ecx
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;  END student code
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+
+---------------------------------------------
+LAB 11	lab11
+---------------------------------------------
+
+extern first_value
+global first_func, second_func, third_func
+global out1, out2
+section .data
+firstfloat dd 1.2345
+secondfloat dd 2.345
+out1 dd 0x00
+out2 dq 0x00
+tmp dq 0x00
+section .text
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;  This problem will require ;  you to load both firstfloat ;  and secondfloat (above) onto
+;  the floating point stack, add ;  them together, and store the ;  result in out1.
+; 
+;  BEGIN student code
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+mov rax, firstfloat
+fld dword [rax] 
+mov rax, secondfloat
+fld dword [rax] 
+
+fadd 	; add the first two things on the floating point stack, adds them, and stores it 
+	; as the first thing on the floating point stack
+
+mov rax, out1
+fst dword [rax]
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;  END student code
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;  This problem will require ;  you to add the contents of ;  _firstfloat to an integer
+;  that is passed in as the ;  first (and only) argument ;  to your function. Store the
+;  result at out2.
+; 
+;  BEGIN student code
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+mov rax, firstfloat
+fld dword [rax]		; put firstfloat on stack
+
+mov rax, tmp		;
+mov qword [rax], rdi
+
+fiadd dword [rax]
+
+mov rax, out2		; Get the address of out2 in rax
+fstp qword [rax]	; Store value
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;  END student code
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+
+
+---------------------------------------------
+LAB 12	lab12
+---------------------------------------------
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;  This problem will require ;  adding two vectors of numbers.  ;  A pointer to two unaligned
+;  vectors of 32-bit integers ;  have been passed as the first ;  two parameters to your function,
+;  and a pointer to an empty ;  vector has been provided to store ;  the result.
+; 
+;  BEGIN student code
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+movups xmm0, [rdi] 
+movups xmm1, [rsi]
+addps xmm0, xmm1
+mov rax, rdx
+movups [rax], xmm0
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;  END student code
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;  This problem will require ;  you to compare the values ;  stored in the vector pointed
+;  to by parameter 1 with the ;  values stored in the vector ;  pointed to by parameter 2.
+;  Store the results of the ;  comparison in the vector ;  pointed to by parameter 3.
+; 
+;  BEGIN student code
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+movups xmm0, [rdi] 
+movups xmm1, [rsi]
+cmpps xmm0, xmm1, 0
+mov rax, rdx
+movups [rax], xmm0
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;  END student code
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+
+---------------------------------------------
+LAB 13	lab13
+---------------------------------------------
+
+
+find_largest:
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;  This function takes two arguments: ;  Find the largest value in the int * buffer
+; in "a", which contains "b" items, and return it 
+;
+;  BEGIN student code
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+xor rax, rax
+xor rcx, rcx
+
+.continue:
+        mov ecx, [rdi]          ; Int array is 32 bit integer (64 reg like rax, stores two integers)
+        cmp eax, ecx		; Subtract 
+
+	ja .next		; Jump over code if eax is larger
+	mov eax, ecx
+
+	.next:
+ 
+        lea rdi, [rdi + 4]      ; Move 4 bytes or 32 bits to the next integer
+        dec rsi                 ; decrement the loop
+        test rsi, rsi           ; test if rsi is zero
+        jnz .continue
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;  END student code
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+
+ex_strlen:
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;  size_t strlen(char*);  
+;
+;  BEGIN student code
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;xor rax, rax
+;.myloop:
+;	mov bl, [rdi]
+;	cmp bl, 0
+;	je .myend
+;	inc rax
+;	lea rdi, [rdi + 1]
+;	jmp .myloop
+;.myend:
+
+; The better string len
+xor rax, rax
+xor rcx, rcx
+not rcx
+cld
+repne scasb
+not rcx
+dec rcx
+mov rax, rcx
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;  END student code
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+
+ex_memcpy:
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;  void memcpy(void* dst, void* src, size_t x);
+;
+;  BEGIN student code
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+mov rcx, rdx
+rep movsb
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;  END student code
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+
+ex_memset:
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+; void memset(void* buf, unsigned char value, size_t length);
+;
+;  BEGIN student code
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+xor rax, rax
+mov rax, rsi
+mov rcx, rdx
+rep stosb
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;  END student code
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+    ret
+
+ex_memchr:
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+; void* memchr(void* haystack, unsigned char needle, size_t length);
+;  rax		rdi    			rsi		rdx
+;  BEGIN student code
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+xor rax, rax
+mov rax, rsi
+mov rcx, rdx
+repne scasb
+
+xor rax, rax	; Places null into the return
+cmp rcx, 0	; If rcx is zero, we made it to the end of the string
+jz .next	; Jump if rcx is zero
+
+dec rdi		; Otherwise return the pointer that rdi is pointing at, which is 1 pass the address
+mov rax, rdi	; Move rdi into the return value
+
+.next:
+ 
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;  END student code
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+
+ex_memcmp:
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;	int memcmp(void*, void*, size_t length);
+;
+;  BEGIN student code
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+    mov rcx, rdx
+    repe cmpsb
+    mov rax, rcx
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;  END student code
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+
+ex_strchr:
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;  BEGIN student code
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+push rdi
+mov rax, rsi
+xor rcx, rcx
+.myloop:
+        mov bl, [rdi]
+        cmp bl, 0
+        je .myend
+        inc rcx
+        lea rdi, [rdi + 1]
+        jmp .myloop
+.myend:
+
+pop rdi
+
+repne scasb
+
+xor rax, rax
+cmp rcx, 0
+jz .next
+
+dec rdi
+mov rax, rdi
+
+.next:
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;  END student code
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+
+ex_strcmp:
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;  BEGIN student code
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+xor rax, rax
+xor rcx, rcx
+push rdi
+.myloop:		; loop just to find the strlen
+        mov bl, [rdi]
+        cmp bl, 0
+        je .myend
+        inc rcx
+        lea rdi, [rdi + 1]
+        jmp .myloop
+.myend:
+pop rdi
+    repe cmpsb
+    mov rax, rcx
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;  END student code
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+
+ex_strcpy:
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;  BEGIN student code
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+xor rax, rax
+push rdi
+
+.myloop:
+	mov bl, [rsi]
+	movsb
+	cmp bl, 0
+	je .myend
+	;lea rdi, [rdi + 1]
+	jmp .myloop
+.myend:
+
+pop rax
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;  END student code
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+
+ex_atoi:
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;  BEGIN student code
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+xor rax, rax
+xor rbx, rbx
+
+.myloop:
+	mov bl, [rdi]
+	cmp bl, 0
+	je .myend
+
+	sub bl, 48	; Assuming a number list
+	add eax, ebx
+	mov ebx, 10
+	mul ebx
+
+	lea rdi, [rdi + 1]
+
+	jmp .myloop
+.myend
+mov ebx, 10
+div ebx
+
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;  END student code
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+
+
+ex_strstr:
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;  BEGIN student code
+; char *strstr(const char* str, const char* substr)
+;   rax               rdi              rsi
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+; The better string len
+;xor rax, rax
+;xor rcx, rcx
+;not rcx
+;cld
+;repne scasb
+;not rcx
+;dec rcx
+
+xor rax, rax
+mov al, byte [rsi]
+
+scasb
+;repne cmps
+
+dec rdi
+mov rax, rdi
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;  END student code
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+
+
+bits 64
+
+; LABS
+global ex_strlen, ex_memcpy, ex_memset, ex_memcmp, ex_memchr, ex_strchr, ex_strcmp, ex_strcpy, ex_atoi
+global ex_strstr, find_largest, walk_list
+
+; BONUS LABS
+global ex_isort, ex_qsort
+
+
+find_largest:
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;  This function takes two arguments:
+;  Find the largest value in the int * buffer
+;  in "a", which contains "b" items, and return it 
+;
+;  BEGIN student code
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+xor rax, rax
+xor rcx, rcx
+
+.continue:
+        mov ecx, [rdi]          ; Int array is 32 bit integer (64 reg like rax, stores two integers)
+        cmp eax, ecx		; Subtract 
+
+	ja .next		; Jump over code if eax is larger
+	mov eax, ecx
+
+	.next:
+ 
+        lea rdi, [rdi + 4]      ; Move 4 bytes or 32 bits to the next integer
+        dec rsi                 ; decrement the loop
+        test rsi, rsi           ; test if rsi is zero
+        jnz .continue
+
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;  END student code
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+    ret
+
+ex_strlen:
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;  size_t strlen(char*);  
+;		  rdi
+;
+;  BEGIN student code
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+; My method of finding strlen
+;mov rdx, rdi
+;xor rax, rax
+;.myloop:
+;	mov bl, [rdi]		; get character
+;	cmp bl, 0		; compare to string terminator first
+;	je .myend		; found it
+;	inc rax			; increment counter
+;	lea rdi, [rdi + 1]	; calculate next address into rdi
+;	jmp .myloop
+;.myend:
+;sub rdi, rdx
+;mov rax, rdi
+
+; Internet method of strlen
+;xor rax, rax
+;xor rcx, rcx
+;not rcx
+;cld
+;repne scasb
+;not rcx
+;dec rcx
+;mov rax, rcx
+
+; Class method of strlen
+;mov rcx, -1	; rcx will not reach zero until it moves through the entire memory space
+;xor rax, rax	; scanning for 0 or the string terminator
+;repne scasb	; rep scaning if character is not 0 (string terminator)
+;not rcx		; positive number for the count
+;dec rcx		; the strlen
+;mov rax, rcx	; return strlen
+
+; memory subtraction
+mov rbx, rdi
+xor rax, rax
+repne scasb
+sub rdi, rbx
+dec rdi
+mov rax, rdi
+
+
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;  END student code
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+    ret
+
+ex_memcpy:
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;  void memcpy(void* dst, void* src, size_t x);
+;		rdi	     rsi	rdx
+;
+;  BEGIN student code
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+mov rcx, rdx
+rep movsb
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;  END student code
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+    ret
+
+
+ex_memset:
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;	void memset(void* buf, unsigned char value, size_t length);
+;			rdi		rsi		rdx
+;  BEGIN student code
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+mov rax, rsi	
+mov rcx, rdx
+rep stosb
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;  END student code
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+    ret
+
+ex_memchr:
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;	void* memchr(void* haystack, unsigned char needle, size_t length);
+;			rdi		rsi			rdx
+;  BEGIN student code
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+mov rax, rsi
+mov rcx, rdx
+
+repne scasb		; Go rcx times, scanning for rax and repeat scanning if not equal to rax
+
+xor rax, rax		; Places null into the return
+cmp rcx, 0		; If rcx is zero, we made it to the end of the string
+jz .skip		; Otherwise we need to adjust and return the pointer
+	dec rdi		; Otherwise return the pointer that rdi is pointing at, which is 1 pass the address
+	mov rax, rdi	; Move rdi into the return value
+.skip:
+ 
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;  END student code
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+    ret
+
+ex_memcmp:
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;	int memcmp(void*, void*, size_t length);
+;
+;  BEGIN student code
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+    mov rcx, rdx
+    repe cmpsb
+    mov rax, rcx
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;  END student code
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+    ret
+
+ex_strchr:
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;	char *strchr(const char *s, int c);
+;	 rax		rdi	     rsi
+;
+;  BEGIN student code
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+push rdi			; rdi must be save for use later
+
+; strlen
+xor rcx, rcx
+.myloop:
+        mov bl, [rdi]
+        cmp bl, 0
+        je .myend
+        inc rcx
+        lea rdi, [rdi + 1]
+        jmp .myloop
+.myend:
+
+pop rdi				; rdi ready to use with repne
+mov rax, rsi			; mov the search character into rax for scasb
+
+;memchr
+repne scasb
+xor rax, rax
+cmp rcx, 0
+jz .skip
+	dec rdi
+	mov rax, rdi
+.skip:
+
+
+; None scab implementation
+;mov rax, rsi			; mov the search character into rax for scasb
+;.increment:
+;	cmp rcx, 0	; test is zero
+;	je .returnnull
+;
+;	cmp al, byte [rdi]
+;	je .complete
+;
+;	lea rdi, [rdi + 1]
+;	dec rcx
+;
+;	jmp .increment
+;.returnnull:
+;	xor rdi, rdi
+;.complete:
+;	mov rax, rdi
+
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;  END student code
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+    ret
+
+ex_strcmp:
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;	int strcmp(const char *s1, const char *s2);
+;	rax		rdi		rsi
+;
+;  BEGIN student code
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+push rdi
+
+xor rax, rax
+xor rcx, rcx
+.myloop:		; loop just to find the strlen
+        mov bl, [rdi]
+        cmp bl, 0
+        je .myend
+        inc rcx
+        lea rdi, [rdi + 1]
+        jmp .myloop
+.myend:
+
+; Class method of strlen
+;mov rcx, -1     ; rcx will not reach zero until it moves through the entire memory space
+;xor rax, rax    ; scanning for 0 or the string terminator
+;repne scasb     ; rep scaning if character is not 0 (string terminator)
+;not rcx         ; positive number for the count
+;dec rcx         ; the strlen
+
+pop rdi
+repe cmpsb
+mov rax, rcx
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;  END student code
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+    ret
+
+ex_strcpy:
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;  BEGIN student code
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+xor rax, rax
+push rdi
+
+.myloop:
+	mov bl, [rsi]
+	movsb
+	cmp bl, 0
+	je .myend
+	;lea rdi, [rdi + 1]
+	jmp .myloop
+.myend:
+
+pop rax
+
+
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;  END student code
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+    ret
+
+
+ex_atoi:
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;  BEGIN student code
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+xor rax, rax
+xor rbx, rbx
+
+.myloop:
+	mov bl, [rdi]
+	cmp bl, 0
+	je .myend
+
+	sub bl, 48	; Assuming a number list
+	add eax, ebx
+	mov ebx, 10
+	mul ebx
+
+	lea rdi, [rdi + 1]
+
+	jmp .myloop
+.myend:
+mov ebx, 10
+div ebx
+
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;  END student code
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+    ret
+
+
+ex_strstr:
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;  BEGIN student code
+; char *strstr(const char* str, const char* substr)
+;   rax               rdi              rsi
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+push rdi
+push r8
+push r10
+push r11
+
+; ---------------------------------------------------
+; Get the length of search string - rcx will hold this
+push rdi
+xor rax, rax
+xor rcx, rcx
+.count1:
+	mov al, byte [rdi]
+	test al, al
+	jz .count1finished
+	inc rcx
+	inc rdi
+	jmp .count1
+.count1finished:
+pop rdi
+
+
+; ---------------------------------------------------
+; Get the length of search string - rdx will hold this
+push rsi
+xor rax, rax
+xor rdx, rdx
+.count2:
+	mov al, byte [rsi]
+	test al, al
+	jz .count2finished
+	inc rdx
+	inc rsi
+	jmp .count2
+.count2finished:
+pop rsi
+
+
+xor rax, rax			; Clear this for incoming character
+mov al, byte [rsi]		; Grab the first character
+
+; ---------------------------------------------------
+; al  - has our scan string character
+; rcx - search string length 		- r8 will be the saved register
+; rdx - sub string length    		
+; ---------------------------------------------------
+
+
+; ---------------------------------------------------
+; Begin the march
+.march:
+	; Find the occurance of of the first letter, rcx
+	repne scasb		; Repeat until the value store in al is equal to the byte grab by scac
+
+	jz .scancheck 		; repne will set the zero flag to 0 if found	
+
+	dec rdi			; Rdi has been consumed to this point, moving back
+
+	.scancheckfinished:	
+
+	cmp rcx, 0		; If rcx is zero, we made it to the end of the string
+	je .notfoundstring
+
+	; Check for the word
+	mov r10, rdi		; We need to save our place so far with our string
+	mov r11, rsi		; We need to save our substring
+	mov r8, rcx		; Save rcx so we can resume
+	mov rcx, rdx		; This is the length of the sub string
+
+	; Start a substring march to compare
+	repe cmpsb		; Operation terminated when either rcx is zero or result of comparison show inequality setting the ZF to 1
+	
+	jnz .next		; ZF not set
+	cmp rcx, 0 		; if rcx is zero we found it
+	je .foundstring
+	.next:
+
+	; We did not find the substring in the string, rewind the saved values
+	mov rcx, r8		; return rcx
+	mov rsi, r11
+	mov rdi, r10
+
+	; Return rdi back to it's position for the next run
+	inc rdi
+
+	; Continue the march down the string
+	jmp .march
+
+
+.scancheck:		
+	; ZF set means we have a potential substring (1st character), if that's true we found it
+
+	; We need to move the pointer back because it pass our scan point
+	dec rdi
+	
+	; Prepare the register we will use if the string is found
+	mov r10, rdi
+
+	; If the check string is a single character we have found our string
+	cmp rdx, 1
+	je .foundstring
+
+	jmp .scancheckfinished			
+
+
+
+; The string was NOT found
+.notfoundstring:
+	xor rax, rax	; Return null
+	jmp .endstrstr
+
+
+; We have found
+.foundstring:
+	mov rax, r10	; Move the pointer at rdi to rax for the return
+
+
+; rax is loaded and we are done
+.endstrstr:
+
+pop r11
+pop r10
+pop r8
+pop rdi
+
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;  END student code
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+    ret
+
+
+struc Node
+	.Next	resq	1
+	.Data	resq	1
+endstruc
+
+ walk_list:
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+; Walk the list of nodes (staring with "a" and look for value "v".  Return it (if found) or 0 if not
+;  BEGIN student code
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+; Assuming rdi has the struct pointer
+; Assuming rsi has the value "v"
+
+.walkthelist:
+	cmp rsi, [rdi + Node.Data]
+	je .foundit
+
+	mov rdi, [rdi + Node.Next]
+
+	cmp rdi, 0
+	je .didnotfindit
+
+jmp .walkthelist
+
+.didnotfindit:
+	xor rax, rax
+	jmp .finished
+
+.foundit:
+	mov rax, [rdi + Node.Data]
+
+.finished:
+
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;  END student code
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+	ret
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;  |-- |      |--- |    |\     |    |   |   |-------
+;  |   |      |    |    | \    |    |   |   |
+;  |---- |    |    |    |  \   |    |   |   |_______
+;  |     |    |    |    |   \  |    |   |           |
+;  |     |    |    |    |    \ |    |   |           |
+;  |____ |    |___ |    |     \|    |___|   ________|
+;
+;
+;        |           |------ |   |------ |     |-------
+;        |           |       |   |       |     |_______
+;        |           |------ |   |-------- |           |
+;        |           |       |   |         |           |
+;        |_______    |       |   |_________|   ________|
+;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+
+ex_isort:
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;  insertion_sort.c is provided
+;  to give an example implementation.
+;
+;  BEGIN student code
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+xor rcx, rcx
+xor rdx, rdx
+xor rax, rax
+.for:
+	inc rax
+	cmp rax, rsi
+	je .end
+	mov rbx, rax
+
+	.while:
+		test rbx, rbx
+		jz .for
+
+		mov r8, rbx
+		shl r8, 2	; j
+
+		mov r9, r8	
+		sub r9, 4	; j - 1
+
+		mov ecx, [rdi + r9]
+		mov edx, [rdi + r8]
+
+		cmp ecx, edx
+		je .for
+		jl .for
+
+		mov [rdi + r9], edx
+		mov [rdi + r8], ecx
+		
+		dec rbx
+		jmp .while
+
+.end:
+
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;  END student code
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+    ret
+
+
+ex_qsort:
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;  BEGIN student code
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+	push r8
+	push r9
+	push rax
+	push rbx
+	push rcx
+	push rdx
+
+	xor rdx, rdx
+	xchg rdx, rsi   ; rsi = i, rdx = j
+	dec rdx		; keep rsi in range
+
+	call in_qsort
+
+	pop rdx
+	pop rcx
+	pop rbx
+	pop rax
+	pop r9
+	pop r8
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;  END student code
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+    ret
+
+
+
+
+in_qsort:
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;  BEGIN student code
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+; Registers	Variables
+; -------------------------
+; rdi		arr
+; rsi		i
+; rdx		j
+; r8		left
+; r9		right
+; rax		pivot
+
+push rdx		; save right	rdx = i 		
+push rsi		; save left	rsi = j
+
+xor rax, rax	
+mov rbx, rdx		; save rdx due to div
+
+mov rax, rsi		; i ready to add
+add rax, rdx		; add i + j
+mov rcx, 2		; division by 2
+
+xor rdx, rdx		; Final point where this was all figured out
+div rcx			; rax/rcx which is (i + j)/2 stored in rax
+test rdx, rdx
+
+jz .evenvalue
+	inc rax
+.evenvalue:
+
+mov rdx, rbx		; restore rdx which is j
+mov rbx, rax		; using rbx for index
+shl rbx, 2		; index calc for arr[(i+j)/2] = pivot index
+xor eax, eax		
+mov eax, [rdi + rbx]	; pivot value
+
+.partition: 					; while (i <= j) {
+	cmp rsi, rdx
+	jg .recursion
+	.left:					; while(arr[i] < pivot)
+		shl rsi, 2			; index calc arr[i]
+		xor rbx, rbx
+		mov ebx, dword [rdi + rsi]	; ebx = arr[i]
+		shr rsi, 2			; rsi = i again
+		cmp ebx, eax 			; while (arr[i] < pivot)
+		jge .right
+		inc rsi 			; i++;
+		jmp .left
+	.right:					; while (arr[j] > pivot)
+		shl rdx, 2			; index calc arr[j]
+		xor rbx, rbx
+		mov ebx, dword [rdi + rdx]	; ebx = arr[j]
+		shr rdx, 2			; rdx = j again
+		cmp ebx, eax 			; while (arr[j] > pivot)
+		jle .exchange
+		dec rdx 			; j--;
+		jmp .right
+	.exchange:				; if (i <= j)
+		cmp rsi, rdx
+		jg .partition
+		xor rbx, rbx			; prepare to exchange values
+		xor rcx, rcx
+		shl rsi, 2			; index calc arr[i]
+		shl rdx, 2			; index calc arr[j]
+		mov ebx, dword [rdi + rsi]	; ebx = arr[i]
+		mov ecx, dword [rdi + rdx]	; ecx = arr[j]
+		mov [rdi + rsi], ecx		; arr[i] <- ecx (switched)
+		mov [rdi + rdx], ebx 		; arr[j] <- ebx (switched)
+		shr rsi, 2			; rsi = i again
+		shr rdx, 2			; rdi = j again
+		inc rsi				; i++
+		dec rdx				; j++
+		jmp .partition
+
+.recursion:
+	pop r8			; r8 = left
+	pop r9			; r9 = right
+
+	cmp r8, rdx 		; if (left < j) 
+	jge .next
+
+	push r9			; right
+	push r8			; left
+	push rdx		; j
+	push rsi		; i
+	push rdi		; arr
+	mov rsi, r8		; setup call: rsi = left and rdx = j
+	call in_qsort		; quickSort(arr, left, j); rdi, r8, rdx
+	pop rdi			; arr
+	pop rsi			; i
+	pop rdx			; j
+	pop r8			; left
+	pop r9			; right
+
+	.next:
+
+	cmp rsi, r9		; if (i < right)
+	jge .end
+
+	push r9			; right
+	push r8			; left
+	push rdx		; j
+	push rsi		; i
+	push rdi		; arr
+	mov rdx, r9		; setup call: rsi = i and rdx = right
+	call in_qsort		; quickSort(arr, i, right); rdi rsi r8
+	pop rdi			; arr
+	pop rsi			; i
+	pop rdx			; j
+	pop r8			; left
+	pop r9			; right
+
+.end:
+
+;void quickSort(int arr[], int left, int right) {
+;      int i = left, j = right;
+;      int tmp;
+;      int pivot = arr[(left + right) / 2];
+; 
+;      /* partition */
+;      while (i <= j) {			// partition
+;            while (arr[i] < pivot)	// left
+;                  i++;
+;            while (arr[j] > pivot)	// right
+;                  j--;
+;            if (i <= j) {		// exchange
+;                  tmp = arr[i];
+;                  arr[i] = arr[j];
+;                  arr[j] = tmp;
+;                  i++;
+;                  j--;
+;            }
+;      };
+; 
+;      /* recursion */
+;      if (left < j)
+;            quickSort(arr, left, j);
+;      if (i < right)
+;            quickSort(arr, i, right);
+;}
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;  END student code
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+    ret
+
+
+
+//extern void *mymalloc(int);
+extern void *mmap_anon_page(int);
+extern void myfree(void*);
+extern void mywrite(char *, int);
+extern void memset(void*, int, int);
+extern unsigned int read(int, void *, unsigned int);
+extern unsigned int write(int, const void *, unsigned int);
+extern int lseek(int, int, int);
+extern int open(const char *, int, int);
+extern long clone(unsigned long flags, void *child_stack, void *ptid, void *ctid, struct pt_regs *regs);
+extern void execve(char*, char**, char*);
+extern int pause(void);
+extern unsigned int strlen2(char *);
+extern int close(int fd);
+extern int ex_memcmp(void*, void*, int length);
+
+// ----------------------------------------------------------------------
+// For directory listing
+struct dirent {
+    unsigned long   d_ino;
+    unsigned long   d_off;
+    unsigned short  d_reclen;
+    char            d_name[];
+};
+
+extern int dent_me(int fd, struct dirent*, unsigned int size);
+// ----------------------------------------------------------------------
+
+
+#define NULL 0
+#define O_RDONLY   00
+#define O_WRONLY   01
+#define O_RDWR     02
+#define O_CREAT    0100 
+#define O_TRUNC    01000 
+#define O_APPEND   02000
+#define S_IRWXU 00700 // user (file owner) has read, write and execute permission 
+#define S_IRUSR 00400 // user has read permission
+#define S_IWUSR 00200 // user has write permission 
+#define S_IXUSR 00100 // user has execute permission 
+#define S_IRWXG 00070 // group has read, write and execute permission 
+#define S_IRGRP 00040 // group has read permission 
+#define S_IWGRP 00020 // group has write permission 
+#define S_IXGRP 00010 // group has execute permission 
+#define S_IRWXO 00007 // others have read, write and execute permission 
+#define SEEK_SET        0   // Seek from beginning of file
+#define SEEK_CUR        1   // Seek from current position
+#define SEEK_END        2   // Seek from the end of the file
+
+// Defines for threads
+#define CLONE_VM      0x00000100 // VM shared between procs.
+#define CLONE_FS      0x00000200 // fs info shared
+#define CLONE_FILES   0x00000400 // open files shared
+#define CLONE_SIGHAND 0x00000800 // signal handlers shared.
+#define CLONE_THREAD  0x00010000 // add to same thread group.
+
+
+struct heap_node;
+typedef struct heap_node {
+        struct heap_node* next;
+        unsigned long size;
+        unsigned char data[1];
+} heap_node;
+
+typedef struct free_list {
+        heap_node* head;
+} free_list;
+
+/* Add structure overhead to our alloc size */
+#define HEAP_ALLOC_SIZE(x)      (sizeof(heap_node) + x)
+/* The beginning of our free list; head starts out NULL */
+free_list free_start;
+
+heap_node* check_free_list(unsigned long n)
+{
+        heap_node* prev = NULL;
+        heap_node* current = NULL;
+
+        /*
+        * If our list is empty, we need to
+        * allocate.
+        */
+        if(NULL == free_start.head)
+                return NULL;
+
+        current = free_start.head;
+        prev = current;
+        if (current->size >= n) {
+                /* Remove from the list */
+                free_start.head = (current->next != NULL) ?
+                                &current->next : NULL;
+                return current;
+        } else if (current->next == NULL) {
+                return NULL;
+        }
+
+        do {
+        /* Walk the list, find and remove a
+        * chunk of at least size n
+        */
+        } while(current->next);
+        return NULL;
+}
+
+
+void* allocate(unsigned long n)
+{
+        heap_node* tmp = NULL;
+        unsigned long alloc_size = 0;
+
+        /*
+        * We'll check the free list first,
+        * and see if there is a suitable chunk
+        */
+        if(NULL != (tmp = check_free_list(n))) {
+                /* We found a match! */
+                return (void*)tmp->data;
+        }
+
+        /*
+        * Since we need to allocate, we have
+        * to add enough to our header to
+        * account for our heap_node struct!
+        */
+        alloc_size = HEAP_ALLOC_SIZE(n);
+        /* We'll allocate some space */
+        if(NULL == (tmp = mmap_anon_page(alloc_size))) {
+                return NULL;
+        }
+
+        tmp->size = n;
+        tmp->next = NULL;
+        /* Return the beginning of the data buffer */
+        return (void*)tmp->data;
+}
+
+void deallocate(void* p)
+{
+        heap_node* node = NULL;
+
+        if(NULL == p) return;
+        /*
+        * Subtract the size of the bookkeeping struct to get back to the top of the heap_node structure in memory */
+        node = (heap_node*)(((char*)p) - sizeof(heap_node));
+
+        /* Zero the user provided data */
+        memset(node->data, 0, node->size);
+
+        /* Add the node to the free list */
+        node->next = &free_start.head;
+        free_start.head = node;
+}
+long get_fsize(int fd)
+{
+    long tmp = 0;
+    long off = 0;
+    off = lseek(fd, 0, SEEK_CUR);
+    tmp = lseek(fd, 0, SEEK_END);
+    lseek(fd, off, SEEK_SET);
+
+    return tmp;
+}
+
+int main()
+{
+    int fd;
+    char *procfile = "/proc/self/cmdline";
+    char procbuf[1024] = { 0 };
+
+    int fa, fb, ff;
+    char *afile = "A";
+    char *bfile = "B";
+    char *ffile = "final";
+    char *membuf = { 0 };
+    int asz = 0;
+    int bsz = 0;
+    int tsz = 0;
+
+    // TEST 1 --------------------------------------------------------------------------------
+    fd = open(procfile, O_RDONLY, 0);
+    read(fd, procbuf, 1024);
+
+
+    for (int i = 0; i < 1024; i++)
+    {
+    	if (ex_memcmp(procbuf + i, "flgs", 4) == 0)
+    	{
+         mywrite("flgs\0", 5);
+	
+       	close(fd);
+       	return 0;
+    	}
+    }
+    // ---------------------------------------------------------------------------------------
+
+    // TEST 2 --------------------------------------------------------------------------------
+    // If not given the command line argument "flgs", open two files: "A" and "B"
+    // Take the two files and:
+	//1.) Find their sizes
+	//2.) Copy the contents of both into memory
+	//3.) Write them both to a new file named "final" in order, with "A"'s contents at the beginning, followed by "B".
+
+    // Open files
+    ff = open(ffile, O_RDWR|O_CREAT|O_TRUNC, S_IRUSR|S_IWUSR);
+    fa = open(afile, O_RDONLY, 0);
+    fb = open(bfile, O_RDONLY, 0);
+
+    // Find sizes
+    asz = get_fsize(fa);
+    bsz = get_fsize(fb);
+
+    membuf = mmap_anon_page(asz + bsz);
+
+    read(fa, membuf, asz);
+    read(fb, membuf + asz, bsz);
+
+    write(ff, membuf, asz + bsz);
+    close(ff);
+    close(fa);
+    close(fb);
+
+
+/*
+    char *sbuf;
+    heap_node *hp;
+    int fd, fd2, pos;
+    char *file = "file.txt";
+    char *newfile = "./newfile.txt";
+    char bigbuf[256] = { 0 };
+
+    // ----------------------------------------
+    char buf[1024] = {0};
+    char *newline = "\n";
+    int num_read = 0;
+    int len = 0;
+    int current = 0;
+    struct dirent* tmp = (struct dirent*)buf;
+    int fdd = open("/home/student", O_RDONLY, 0);
+    num_read = dent_me(fdd, tmp, sizeof(buf));
+
+    while(current < num_read) {
+        //fprintf(0, "%s\n", tmp->d_name);
+	len = strlen2(tmp->d_name);
+	write(1, tmp->d_name, len);
+	write(1, newline, 1);
+
+        current += tmp->d_reclen;
+        tmp = (struct dirent*)(buf + current);
+    }
+
+
+    close(fdd);
+    // ----------------------------------------
+
+*/
+
+
+    //mywrite("What is this shit?\n\0", 19);
+
+    // Testing of struct allocation
+    //allocate(2);
+    //hp = check_free_list(2);
+    //deallocate(hp);
+
+    // Testing of Malloc and Free
+    //sbuf = mymalloc(1024);
+    //myfree(sbuf);		// Pointer to struct and length to free
+
+    // Testing file functions
+    //fd = open(file, O_RDONLY, 0);
+    //read(fd, bigbuf, 151);
+    //write(0, bigbuf, 151);
+
+    //pos = lseek(fd, 0, SEEK_SET);
+    //pos = lseek(fd, 0, SEEK_CUR);
+    //pos = lseek(fd, 0, SEEK_END);
+    //pos = lseek(fd, 0, SEEK_SET);
+    
+    //close(fd);
+    
+    //fd2 = open(newfile, O_RDWR|O_CREAT|O_TRUNC, S_IRUSR|S_IWUSR);
+    //write(fd2, bigbuf, 151);
+    //close(fd2);
+
+    //char *myargv[] = { "/bin/bash", NULL };
+    //execve("/bin/bash", myargv, NULL);
+
+    //char *myargv[] = { "/usr/bin/python", NULL };
+    //execve("/usr/bin/python", myargv, NULL);
+
+
+    //mywrite("N0 c0r3 dump?\n\0", 15);
+
+    return 0;
+}
+
+
+
+bits 64
+
+global add_num_arrays, sum_values, call_function, find_min
+
+add_num_arrays:
+;;;;;;;;;;;;;;;;;;
+; This function takes three
+; parameters: 
+; 
+; Parameter 1: A pointer to a buffer
+; containing 4 integers (4 bytes/each).
+;
+; Parameter 2: A pointer to a buffer that
+; contains 4 integers (4 bytes/each).
+;
+; Parameter 3: A pointer to a buffer that has
+; room to store 4 integers (the results).
+; 
+; the task for this function is
+; to add each of the 4 integers provided in the
+; first buffer with the second 4 (e.g., 
+; outbuf[0] = inbuf1[0] + inbuf2[0],
+; outbuf[1] = inbuf1[1] + inbuf2[1], etc).
+; in the buffer provided in parameter 1,
+; and store the resulting 4 values into 
+; the buffer provided as the second parameter.
+;
+; void add_num_arrays(int* inbuf1, int* inbuf2, int* outbuf);
+;
+; BEGIN STUDENT CODE
+;;;;;;;;;;;;;;;;;;;;
+xor rax, rax
+xor rcx, rcx
+mov rcx, 3
+
+.addit:
+	xor rax, rax
+	add rax, [rdi]
+	add rax, [rsi]
+	mov [rdx], rax
+	lea rdi, [rdi +4]
+	lea rsi, [rsi +4]
+	lea rdx, [rdx +4]
+	loop .addit
+
+;;;;;;;;;;;;;;;;;;;;
+; END STUDENT CODE
+;;;;;;;;;;;;;;;;;;;;
+	ret
+
+
+
+sum_values:
+;;;;;;;;;;;;;;;;;;;;
+; This method takes two parameters:
+;
+; Parameter 1: A pointer to a buffer of unsigned longs
+; (8 bytes/each)
+; 
+; Parameter 2: A size_t indicating the number of elements
+; in the buffer.
+;
+; It should return: The sum of all values in the buffer.
+;
+; size_t sum_values(size_t* buffer, size_t count);
+;
+;
+; BEGIN STUDENT CODE
+;;;;;;;;;;;;;;;;;;;;
+        xor rax, rax
+.sumit:
+        add rax, [rdi]          ; Int array is 32 bit integer (64 reg like rax, stores two integers)
+        lea rdi, [rdi + 8]      ; Move 4 bytes or 32 bits to the next integer
+        dec rsi                 ; decrement the loop
+        test rsi, rsi           ; test if rsi is zero
+        jnz .sumit
+
+
+
+;;;;;;;;;;;;;;;;;;;;
+; END STUDENT CODE
+;;;;;;;;;;;;;;;;;;;;
+	ret
+
+
+
+call_function:
+;;;;;;;;;;;;;;;;;;;;
+; This method takes four parameters:
+;
+; Parameter 1: A pointer to a function, that accepts a pointer to a buffer,			rdi
+; a size_t (indicating the buffer size in bytes), and returns an integer (4 bytes)
+;
+; Parameter 2: A pointer to a buffer that we wish to copy bytes into				rsi
+;
+; Parameter 3: A pointer to a buffer that we wish to copy bytes from				rdx
+;
+; Parameter 4: A size_t (8 bytes) indicating how much data (in bytes) we			rcx
+; want to copy from source to destination.
+;
+; Return: The value returned by the function pointer
+;
+; The objective is to:
+;	1.) Copy size bytes from source to destination
+;	2.) Call the function pointer, providing the destination buffer, and its size
+;   3.) Return the value it gives back
+;
+; int  call_function(int(*)(void*, size_t), void* dst, void* src, size_t size);
+;
+;
+; BEGIN STUDENT CODE
+;;;;;;;;;;;;;;;;;;;;
+mov r9,  rdi	; our function
+mov r10, rcx	; the size
+mov r11, rsi; the buffer we need to pass
+
+mov rdi, rsi	; empty buffer
+mov rsi, rdx	; full buffer
+rep movsb	; RSI into RDI, and increments both pointers
+
+mov rdi, r11
+mov rsi, r10
+
+jmp r9
+
+mov rax, rdi
+
+;;;;;;;;;;;;;;;;;;;;
+; END STUDENT CODE
+;;;;;;;;;;;;;;;;;;;;
+	ret
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;  |-- |      |--- |    |\     |    |   |   |-------
+;  |   |      |    |    | \    |    |   |   |
+;  |---- |    |    |    |  \   |    |   |   |_______
+;  |     |    |    |    |   \  |    |   |           |
+;  |     |    |    |    |    \ |    |   |           |
+;  |____ |    |___ |    |     \|    |___|   ________|
+;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+find_min:
+;;;;;;;;;;;;;;;;;;;;
+; This method takes two parameters:
+;
+; Parameter 1: A pointer a buffer containing integers
+; (4 bytes/each)
+;
+; Parameter 2: An integer (4 bytes) indicating the number of elements
+; in the buffer.
+;
+; Return: An integer (4 bytes), the smallest element in the array.
+;
+; BEGIN STUDENT CODE
+;;;;;;;;;;;;;;;;;;;;
+xor rbx, rbx
+mov rcx, rsi
+mov eax, [rdi]
+
+.continue:
+        mov ebx, [rdi]          ; Int array is 32 bit integer (64 reg like rax, stores two integers)
+        cmp eax, ebx            ; Subtract
+
+        jl .next                ; Jump over code if eax is smaller
+        mov eax, ebx
+
+        .next:
+
+        lea rdi, [rdi + 4]      ; Move 4 bytes or 32 bits to the next integer
+        loop .continue
+
+	
+
+;;;;;;;;;;;;;;;;;;;;
+; END STUDENT CODE
+;;;;;;;;;;;;;;;;;;;;
+	ret
+
